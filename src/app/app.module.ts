@@ -7,7 +7,7 @@ import {MyDirective} from "./mainPanelComponent/mainPanel";
 @NgModule({
     declarations: [
         AppComponent,
-        MyDirective
+        MyDirective,
     ],
     imports: [BrowserModule],
     bootstrap: [AppComponent]
