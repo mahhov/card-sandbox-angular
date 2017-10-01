@@ -1,11 +1,12 @@
 import {Component, ElementRef, ViewChild} from "@angular/core";
-import {ExampleService} from "../layer/tableService";
+import {TableService} from "../layer/tableService";
+import {Table} from "../class/table";
 import * as _ from "underscore";
 
 @Component({
     selector: 'main-panel',
     templateUrl: './mainPanel.html',
-    providers: [ExampleService]
+    providers: [TableService]
 })
 
 export class MyDirective {
@@ -24,7 +25,7 @@ export class MyDirective {
     ngAfterViewInit() {
         this.ctx = this.myCanvas.nativeElement.getContext("2d");
 
-        _.times(50, () => {
+        _.times(50, (): void => {
             let x = _.random(0, this.tableWidth - 1);
             let y = _.random(0, this.tableHeight - 1);
             this.drawCard(x, y, "x");
@@ -47,5 +48,8 @@ export class MyDirective {
         let height: number = this.cardHeight * this.canvasHeight;
         this.drawRect(left, top, width, height, "0");
         this.drawText("card", left + width / 2, top + height / 2)
+    }
+
+    drawTable(table: Table): void {
     }
 }
