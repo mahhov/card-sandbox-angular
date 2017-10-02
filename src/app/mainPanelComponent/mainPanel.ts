@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewChild} from "@angular/core";
 import {TableService} from "../layer/tableService";
 import {Table} from "../class/table";
+import {Deck} from "../class/deck";
 import * as _ from "underscore";
 
 @Component({
@@ -14,22 +15,27 @@ export class MyDirective {
     ctx: CanvasRenderingContext2D;
     readonly canvasWidth: number = 500;
     readonly canvasHeight: number = 500;
-    readonly tableWidth: number = 10;
-    readonly tableHeight: number = 6;
     readonly tableMargin: number = .02;
-    readonly cardSectionWidth: number = (1 - this.tableMargin) / this.tableWidth;
-    readonly cardSectionHeight: number = (1 - this.tableMargin) / this.tableHeight;
-    readonly cardWidth: number = this.cardSectionWidth - this.tableMargin;
-    readonly cardHeight: number = this.cardSectionHeight - this.tableMargin;
+    cardSectionWidth: number;
+    cardSectionHeight: number;
+    cardWidth: number;
+    cardHeight: number;
+    table: Table;
+
+    constructor(tableService: TableService) {
+        this.table = tableService.getTable();
+    }
 
     ngAfterViewInit() {
         this.ctx = this.myCanvas.nativeElement.getContext("2d");
+        this.drawTable(this.table);
+    }
 
-        _.times(50, (): void => {
-            let x = _.random(0, this.tableWidth - 1);
-            let y = _.random(0, this.tableHeight - 1);
-            this.drawCard(x, y, "x");
-        });
+    setMetric(tableWidth: number, tableHeight: number): void {
+        this.cardSectionWidth = (1 - this.tableMargin) / tableWidth;
+        this.cardSectionHeight = (1 - this.tableMargin) / tableHeight;
+        this.cardWidth = this.cardSectionWidth - this.tableMargin;
+        this.cardHeight = this.cardSectionHeight - this.tableMargin;
     }
 
     drawRect(left: number, top: number, width: number, height: number, color: string): void {
@@ -51,5 +57,9 @@ export class MyDirective {
     }
 
     drawTable(table: Table): void {
+        this.setMetric(table.width, table.height);
+        _.each(table.deck, (deck: Deck) => {
+            this.drawCard(deck.x, deck.y, "");
+        });
     }
 }

@@ -6,8 +6,11 @@ import {Deck} from "../class/deck";
 import {Interact} from "../class/interact";
 
 @Injectable()
-
 export class TableService {
+    public getTable(): Table {
+        return TableService.createTable(TableService.createProgram(TableService.getInput()));
+    }
+
     private static getInput(): string[] {
         let input: string =
             `init
