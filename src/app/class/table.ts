@@ -5,8 +5,8 @@ import {Interact} from "./interact";
 export class Table {
     width: number;
     height: number;
-    deck: Deck[];
-    interact: Interact[];
+    deck: Deck[] = [];
+    interact: Interact[] = [];
 
     static readonly possibleDeckContain: string[] = ['empty', 'full'];
     static readonly possibleDeckOrder: string[] = ['order', 'shuffle'];

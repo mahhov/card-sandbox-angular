@@ -1,7 +1,7 @@
 export class Interact {
     whenX: number;
     whenY: number;
-    then: Then[];
+    then: Then[] = [];
 
     setWhen(x: number, y: number): void {
         this.whenX = x;
