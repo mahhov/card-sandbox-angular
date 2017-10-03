@@ -16,6 +16,8 @@ export class MyDirective {
     readonly canvasWidth: number = 500;
     readonly canvasHeight: number = 500;
     readonly tableMargin: number = .02;
+    tableWidth: number;
+    tableHeight: number;
     cardSectionWidth: number;
     cardSectionHeight: number;
     cardWidth: number;
@@ -32,6 +34,8 @@ export class MyDirective {
     }
 
     setMetric(tableWidth: number, tableHeight: number): void {
+        this.tableWidth = tableWidth;
+        this.tableHeight = tableHeight;
         this.cardSectionWidth = (1 - this.tableMargin) / tableWidth;
         this.cardSectionHeight = (1 - this.tableMargin) / tableHeight;
         this.cardWidth = this.cardSectionWidth - this.tableMargin;
@@ -61,5 +65,28 @@ export class MyDirective {
         _.each(table.deck, (deck: Deck) => {
             this.drawCard(deck.x, deck.y, "");
         });
+    }
+
+    click(x: number, y: number): void {
+        let ratioX: number = x / this.canvasWidth;
+        let ratioY: number = y / this.canvasHeight;
+        let actualX: number = -1;
+        let actualY: number = -1;
+        let tryX: number = 0;
+        let tryY: number = 0;
+        while (true) {
+            if ((ratioX -= this.tableMargin) < 0)
+                break;
+            if ((ratioX -= this.cardWidth) < 0)
+                actualX = tryX;
+            tryX++;
+        }
+        while (true) {
+            if ((ratioY -= this.tableMargin) < 0)
+                break;
+            if ((ratioY -= this.cardHeight) < 0)
+                actualY = tryY;
+            tryY++;
+        }
     }
 }
