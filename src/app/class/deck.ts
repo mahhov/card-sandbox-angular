@@ -21,7 +21,7 @@ export class Deck {
     }
 
     setProperties(words: string[]) {
-        _.each(words, function (word) {
+        _.each(words, (word: string): void => {
             if (_.contains(Table.possibleDeckContain, word))
                 this.contain = word;
             else if (_.contains(Table.possibleDeckOrder, word))
@@ -29,8 +29,12 @@ export class Deck {
             else if (_.contains(Table.possibleDeckVisibility, word))
                 this.visibility = word;
         });
+        
         if (this.contain === 'full')
             this.cards = Table.fullDeck.slice();
+        else if (this.contain === 'empty')
+            this.cards = [];
+        
         if (this.order === 'shuffle')
             this.cards = _.shuffle(this.cards) as string[];
     }

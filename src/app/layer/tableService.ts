@@ -64,7 +64,7 @@ export class TableService {
             else if (words[0] === 'deck') {
                 let deck: Deck = new Deck();
                 deck.setPos(parseInt(words[1]), parseInt(words[2]));
-                deck.setProperties(words.splice[2]);
+                deck.setProperties(words.splice(3));
                 table.addDeck(deck);
             }
         });

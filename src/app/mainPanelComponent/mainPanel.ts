@@ -42,8 +42,13 @@ export class MyDirective {
         this.cardHeight = this.cardSectionHeight - this.tableMargin;
     }
 
+    drawClear(): void {
+        this.ctx.fillStyle = "white";
+        this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+    }
+
     drawRect(left: number, top: number, width: number, height: number, color: string): void {
-        this.ctx.fillStyle = "color";
+        this.ctx.fillStyle = color;
         this.ctx.strokeRect(left, top, width, height);
     }
 
@@ -51,19 +56,20 @@ export class MyDirective {
         this.ctx.strokeText(text, left, bottom);
     }
 
-    drawCard(x: number, y: number, card: string): void {
+    drawDeck(x: number, y: number, deck: Deck): void {
         let left: number = (x * this.cardSectionWidth + this.tableMargin) * this.canvasWidth;
         let top: number = (y * this.cardSectionHeight + this.tableMargin) * this.canvasHeight;
         let width: number = this.cardWidth * this.canvasWidth;
         let height: number = this.cardHeight * this.canvasHeight;
         this.drawRect(left, top, width, height, "0");
-        this.drawText("card", left + width / 2, top + height / 2)
+        this.drawText('' + deck.cards.length, left + width / 2, top + height / 2)
     }
 
     drawTable(table: Table): void {
+        this.drawClear();
         this.setMetric(table.width, table.height);
         _.each(table.deck, (deck: Deck) => {
-            this.drawCard(deck.x, deck.y, "");
+            this.drawDeck(deck.x, deck.y, deck);
         });
     }
 
@@ -91,5 +97,7 @@ export class MyDirective {
 
         if (actualX != -1 && actualY != -1)
             this.table.handleClick(actualX, actualY);
+
+        this.drawTable(this.table);
     }
 }
