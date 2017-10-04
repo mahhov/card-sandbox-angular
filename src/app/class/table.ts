@@ -1,6 +1,6 @@
 import * as _ from "underscore";
 import {Deck} from "./deck";
-import {Interact} from "./interact";
+import {Interact, Then} from "./interact";
 
 export class Table {
     width: number;
@@ -33,5 +33,27 @@ export class Table {
 
     addInteract(interact: Interact): void {
         this.interact.push(interact);
+    }
+
+    handleClick(x: number, y: number): void {
+        _.each(this.interact, (interact): void => {
+            if (interact.whenX === x && interact.whenY === y)
+                this.handleIntersection(interact);
+        })
+    }
+
+    private handleIntersection(interact: Interact): void {
+        _.each(interact.then, (then: Then): void => {
+            let fromDeck: Deck = this.findDeck(then.fromX, then.fromY);
+            let toDeck: Deck = this.findDeck(then.toX, then.toY);
+            let fromCard: string = fromDeck.removeCard(then.fromOrder);
+            toDeck.addCard(fromCard, then.toOrder);
+        });
+    }
+
+    private findDeck(x: number, y: number): Deck {
+        return _.find(this.deck, (deck: Deck): boolean => {
+            return deck.x === x && deck.y === y;
+        });
     }
 }

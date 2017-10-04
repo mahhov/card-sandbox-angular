@@ -14,21 +14,21 @@ export class Interact {
         if (then.action === 'move') {
             then.fromX = parseInt(words[1]);
             then.fromY = parseInt(words[2]);
-            then.fromOrder = parseInt(words[3]);
+            then.fromOrder = words[3];
             then.toX = parseInt(words[4]);
             then.toY = parseInt(words[5]);
-            then.toOrder = parseInt(words[6]);
+            then.toOrder = words[6];
         }
         this.then.push(then);
     }
 }
 
-class Then {
-    action: String;
+export class Then {
+    action: string;
     fromX: number;
     fromY: number;
-    fromOrder: number;
+    fromOrder: string;
     toX: number;
     toY: number;
-    toOrder: number;
+    toOrder: string;
 }

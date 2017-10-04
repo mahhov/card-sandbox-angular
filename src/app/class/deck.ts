@@ -34,4 +34,18 @@ export class Deck {
         if (this.order === 'shuffle')
             this.cards = _.shuffle(this.cards) as string[];
     }
+
+    removeCard(order: string): string {
+        if (order === 'top')
+            return this.cards.pop();
+        else if (order === 'bottom')
+            return this.cards.shift();
+    }
+
+    addCard(card: string, order: string) {
+        if (order === 'top')
+            return this.cards.push(card);
+        else if (order === 'bottom')
+            return this.cards.unshift(card);
+    }
 }

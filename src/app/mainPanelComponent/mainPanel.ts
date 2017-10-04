@@ -88,5 +88,8 @@ export class MyDirective {
                 actualY = tryY;
             tryY++;
         }
+
+        if (actualX != -1 && actualY != -1)
+            this.table.handleClick(actualX, actualY);
     }
 }
