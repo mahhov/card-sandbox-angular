@@ -19,9 +19,6 @@ export class TableService {
             deck 1 0 empty order visible
             deck 0 1 full order hidden
             deck 1 1 empty order visible
-            deck 2 2 empty order visible
-            deck 3 3 empty order visible
-            deck 4 4 empty order visible
             
             interact
             click 0 0
