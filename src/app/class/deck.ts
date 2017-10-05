@@ -1,7 +1,16 @@
-import {Table} from './table';
-import * as _ from 'underscore';
+import {Table} from "./table";
+import * as _ from "underscore";
 
 export class Deck {
+    readonly BLACK_SPADE: string = '\u2660';
+    readonly BLACK_CLUB: string = '\u2663';
+    readonly BLACK_HEART: string = '\u2665';
+    readonly BLACK_DIAMOND: string = '\u2666';
+    readonly WHITE_SPADE: string = '\u2664';
+    readonly WHITE_CLUB: string = '\u2667';
+    readonly WHITE_HEART: string = '\u2661';
+    readonly WHITE_DIAMOND: string = '\u2662';
+
     x: number;
     y: number;
     contain: string;
@@ -29,12 +38,12 @@ export class Deck {
             else if (_.contains(Table.possibleDeckVisibility, word))
                 this.visibility = word;
         });
-        
+
         if (this.contain === 'full')
             this.cards = Table.fullDeck.slice();
         else if (this.contain === 'empty')
             this.cards = [];
-        
+
         if (this.order === 'shuffle')
             this.cards = _.shuffle(this.cards) as string[];
     }
@@ -51,5 +60,9 @@ export class Deck {
             return this.cards.push(card);
         else if (order === 'bottom')
             return this.cards.unshift(card);
+    }
+
+    getString(): string {
+        return _.last(this.cards);
     }
 }

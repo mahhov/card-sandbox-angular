@@ -1,9 +1,9 @@
-import {Pos} from '../class/pos';
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {TableService} from '../layer/tableService';
-import {Table} from '../class/table';
-import {Deck} from '../class/deck';
-import * as _ from 'underscore';
+import {Pos} from "../class/pos";
+import {Component, ElementRef, ViewChild} from "@angular/core";
+import {TableService} from "../layer/tableService";
+import {Table} from "../class/table";
+import {Deck} from "../class/deck";
+import * as _ from "underscore";
 
 @Component({
     selector: 'main-panel',
@@ -69,24 +69,29 @@ export class MyDirective {
         let top: number = (y * this.cardSectionHeight + this.tableMargin) * this.canvasHeight;
         let width: number = this.cardWidth * this.canvasWidth;
         let height: number = this.cardHeight * this.canvasHeight;
-        this.drawCanvasRect(left, top, width, height, color, true);
+        if (color)
+            this.drawCanvasRect(left, top, width, height, color, true);
         this.drawCanvasRect(left, top, width, height, borderColor, false);
         this.drawCanvasText(cornerText, left + this.cornerMargin, top + this.fontHeight + this.cornerMargin);
         this.drawCanvasText(centerText, left + width / 2, top + height / 2 + this.fontHeight);
     }
 
-    drawDeck(x: number, y: number, deck: Deck): void {
-        this.drawRect(x, y, 'fff', '0', '', 'size ' + deck.cards.length)
+    drawHighlight(highlight: Pos): void {
+        this.drawRect(highlight.x, highlight.y, '#ffb', '#000', '', '');
+    }
+
+    drawDeck(deck: Deck): void {
+        this.drawRect(deck.x, deck.y, null, '#000', '', '' + deck.getString());
     }
 
     drawTable(table: Table): void {
         this.drawCanvasClear();
         this.setMetric(table.width, table.height);
-        _.each(table.deck, (deck: Deck): void => {
-            this.drawDeck(deck.x, deck.y, deck);
-        });
         _.each(table.highlight, (highlight: Pos): void => {
-            this.drawRect(highlight.x, highlight.y, '#ffb', '#000', 'highlighted', 'highlight');
+            this.drawHighlight(highlight);
+        });
+        _.each(table.deck, (deck: Deck): void => {
+            this.drawDeck(deck);
         });
     }
 
