@@ -1,5 +1,6 @@
 import * as _ from "underscore";
 import {Deck} from "./deck";
+import {Pos} from "./pos";
 import {Interact, Then} from "./interact";
 
 export class Table {
@@ -7,6 +8,7 @@ export class Table {
     height: number;
     deck: Deck[] = [];
     interact: Interact[] = [];
+    highlight: Pos[] = [];
 
     static readonly possibleDeckContain: string[] = ['empty', 'full'];
     static readonly possibleDeckOrder: string[] = ['order', 'shuffle'];
@@ -35,10 +37,18 @@ export class Table {
         this.interact.push(interact);
     }
 
-    handleClick(x: number, y: number): void {
+    handleClick(coord: Pos): void {
         _.each(this.interact, (interact): void => {
-            if (interact.whenX === x && interact.whenY === y)
+            if (interact.whenX === coord.x && interact.whenY === coord.y)
                 this.handleIntersection(interact);
+        })
+    }
+
+    handleMouse(coord: Pos): void {
+        this.highlight = [];
+        _.each(this.interact, (interact): void => {
+            if (interact.whenX === coord.x && interact.whenY === coord.y)
+                this.highlight.push(coord);
         })
     }
 

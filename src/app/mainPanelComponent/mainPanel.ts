@@ -1,3 +1,4 @@
+import {Pos} from "../class/pos";
 import {Component, ElementRef, ViewChild} from "@angular/core";
 import {TableService} from "../layer/tableService";
 import {Table} from "../class/table";
@@ -42,44 +43,74 @@ export class MyDirective {
         this.cardHeight = this.cardSectionHeight - this.tableMargin;
     }
 
-    drawClear(): void {
+    drawCanvasClear(): void {
         this.ctx.fillStyle = "white";
         this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
     }
 
-    drawRect(left: number, top: number, width: number, height: number, color: string): void {
+    drawCanvasRect(left: number, top: number, width: number, height: number, color: string, fill: boolean): void {
         this.ctx.fillStyle = color;
-        this.ctx.strokeRect(left, top, width, height);
+        if (fill)
+            this.ctx.fillRect(left, top, width, height);
+        else
+            this.ctx.strokeRect(left, top, width, height);
     }
 
-    drawText(text: string, left: number, bottom: number): void {
+    drawCanvasText(text: string, left: number, bottom: number): void {
         this.ctx.strokeText(text, left, bottom);
     }
 
-    drawDeck(x: number, y: number, deck: Deck): void {
+    drawRect(x: number, y: number, color: string, borderColor: string, cornerText: string, centerText: string) {
         let left: number = (x * this.cardSectionWidth + this.tableMargin) * this.canvasWidth;
         let top: number = (y * this.cardSectionHeight + this.tableMargin) * this.canvasHeight;
         let width: number = this.cardWidth * this.canvasWidth;
         let height: number = this.cardHeight * this.canvasHeight;
-        this.drawRect(left, top, width, height, "0");
-        this.drawText('' + deck.cards.length, left + width / 2, top + height / 2)
+        this.drawCanvasRect(left, top, width, height, color, true);
+        this.drawCanvasRect(left, top, width, height, borderColor, false);
+        this.drawCanvasText(centerText, left + width / 2, top + height / 2)
+    }
+
+    drawDeck(x: number, y: number, deck: Deck): void {
+        this.drawRect(x, y, 'fff', '0', '', 'size ' + deck.cards.length)
     }
 
     drawTable(table: Table): void {
-        this.drawClear();
+        this.drawCanvasClear();
         this.setMetric(table.width, table.height);
-        _.each(table.deck, (deck: Deck) => {
+        _.each(table.deck, (deck: Deck): void => {
             this.drawDeck(deck.x, deck.y, deck);
+        });
+        _.each(table.highlight, (highlight: Pos): void => {
+            this.drawRect(highlight.x, highlight.y, '#ffb', '#000', '', 'highlight');
         });
     }
 
     click(x: number, y: number): void {
-        let ratioX: number = x / this.canvasWidth;
-        let ratioY: number = y / this.canvasHeight;
+        let coord: Pos = this.coordinate(x, y);
+
+        if (coord)
+            this.table.handleClick(coord);
+
+        this.drawTable(this.table);
+    }
+
+    mouse(x: number, y: number): void {
+        let coord: Pos = this.coordinate(x, y);
+
+        if (coord)
+            this.table.handleMouse(coord);
+
+        this.drawTable(this.table);
+    }
+
+    private coordinate(canvasX: number, canvasY: number): Pos {
+        let ratioX: number = canvasX / this.canvasWidth;
+        let ratioY: number = canvasY / this.canvasHeight;
         let actualX: number = -1;
         let actualY: number = -1;
         let tryX: number = 0;
         let tryY: number = 0;
+
         while (true) {
             if ((ratioX -= this.tableMargin) < 0)
                 break;
@@ -87,6 +118,7 @@ export class MyDirective {
                 actualX = tryX;
             tryX++;
         }
+
         while (true) {
             if ((ratioY -= this.tableMargin) < 0)
                 break;
@@ -96,8 +128,8 @@ export class MyDirective {
         }
 
         if (actualX != -1 && actualY != -1)
-            this.table.handleClick(actualX, actualY);
+            return new Pos(actualX, actualY);
 
-        this.drawTable(this.table);
+        return null;
     }
 }
