@@ -1,5 +1,5 @@
-import {Table} from "./table";
-import * as _ from "underscore";
+import {Table} from './table';
+import * as _ from 'underscore';
 
 export class Deck {
     x: number;

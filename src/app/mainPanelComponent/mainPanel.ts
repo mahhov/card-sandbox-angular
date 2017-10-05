@@ -1,9 +1,9 @@
-import {Pos} from "../class/pos";
-import {Component, ElementRef, ViewChild} from "@angular/core";
-import {TableService} from "../layer/tableService";
-import {Table} from "../class/table";
-import {Deck} from "../class/deck";
-import * as _ from "underscore";
+import {Pos} from '../class/pos';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {TableService} from '../layer/tableService';
+import {Table} from '../class/table';
+import {Deck} from '../class/deck';
+import * as _ from 'underscore';
 
 @Component({
     selector: 'main-panel',
@@ -12,7 +12,7 @@ import * as _ from "underscore";
 })
 
 export class MyDirective {
-    @ViewChild("myCanvas") myCanvas: ElementRef;
+    @ViewChild('myCanvas') myCanvas: ElementRef;
     ctx: CanvasRenderingContext2D;
     readonly canvasWidth: number = 500;
     readonly canvasHeight: number = 500;
@@ -32,7 +32,7 @@ export class MyDirective {
     }
 
     ngAfterViewInit() {
-        this.ctx = this.myCanvas.nativeElement.getContext("2d");
+        this.ctx = this.myCanvas.nativeElement.getContext('2d');
         this.drawTable(this.table);
     }
 
@@ -48,7 +48,7 @@ export class MyDirective {
     }
 
     drawCanvasClear(): void {
-        this.ctx.fillStyle = "white";
+        this.ctx.fillStyle = 'white';
         this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
     }
 

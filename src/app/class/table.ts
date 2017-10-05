@@ -1,7 +1,7 @@
-import * as _ from "underscore";
-import {Deck} from "./deck";
-import {Pos} from "./pos";
-import {Interact, Then} from "./interact";
+import * as _ from 'underscore';
+import {Deck} from './deck';
+import {Pos} from './pos';
+import {Interact, Then} from './interact';
 
 export class Table {
     width: number;

@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import * as _ from "underscore";
-import {Program} from "../class/program";
-import {Table} from "../class/table";
-import {Deck} from "../class/deck";
-import {Interact} from "../class/interact";
+import {Injectable} from '@angular/core';
+import * as _ from 'underscore';
+import {Program} from '../class/program';
+import {Table} from '../class/table';
+import {Deck} from '../class/deck';
+import {Interact} from '../class/interact';
 
 @Injectable()
 export class TableService {
