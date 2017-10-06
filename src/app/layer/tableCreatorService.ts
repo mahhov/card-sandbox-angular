@@ -6,9 +6,9 @@ import {Deck} from '../class/deck';
 import {Interact} from '../class/interact';
 
 @Injectable()
-export class TableService {
+export class TableCreatorService {
     public getTable(): Table {
-        return TableService.createTable(TableService.createProgram(TableService.getInput()));
+        return TableCreatorService.createTable(TableCreatorService.createProgram(TableCreatorService.getInput()));
     }
 
     private static getInput(): string[] {
