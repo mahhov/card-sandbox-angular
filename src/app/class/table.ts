@@ -1,7 +1,7 @@
-import * as _ from 'underscore';
-import {Deck} from './deck';
-import {Pos} from './pos';
-import {Interact, Then} from './interact';
+import * as _ from "underscore";
+import {Deck} from "./deck";
+import {Pos} from "./pos";
+import {Interact, Then} from "./interact";
 
 export class Table {
     width: number;
@@ -18,7 +18,7 @@ export class Table {
         let product: string[] = [];
         _.each(['c', 'd', 's', 'h'], (suit: string): void => {
             _.each(_.range(13), (num: number): void => {
-                product.push(suit + num);
+                product.push(suit + (num + 1));
             });
         });
         return product;

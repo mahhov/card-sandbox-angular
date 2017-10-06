@@ -18,7 +18,7 @@ export class TableCreatorService {
             deck 0 0 full shuffle hidden
             deck 1 0 empty order visible
             deck 0 1 full order hidden
-            deck 1 1 empty order visible
+            deck 1 1 empty order visible horiz 2
             
             interact
             click 0 0
