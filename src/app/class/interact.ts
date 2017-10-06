@@ -1,7 +1,7 @@
 export class Interact {
     whenX: number;
     whenY: number;
-    then: Then[] = [];
+    thens: Then[] = [];
 
     setWhen(x: number, y: number): void {
         this.whenX = x;
@@ -19,7 +19,7 @@ export class Interact {
             then.toY = parseInt(words[5]);
             then.toOrder = words[6];
         }
-        this.then.push(then);
+        this.thens.push(then);
     }
 }
 

@@ -87,10 +87,10 @@ export class MyDirective {
     drawTable(table: Table): void {
         this.drawCanvasClear();
         this.setMetric(table.width, table.height);
-        _.each(table.highlight, (highlight: Pos): void => {
+        _.each(table.highlights, (highlight: Pos): void => {
             this.drawHighlight(highlight);
         });
-        _.each(table.deck, (deck: Deck): void => {
+        _.each(table.decks, (deck: Deck): void => {
             this.drawDeck(deck);
         });
     }

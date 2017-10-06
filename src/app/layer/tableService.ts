@@ -66,7 +66,7 @@ export class TableService {
             }
         });
 
-        _.each(program.interact, (interactBlock: string[]): void => {
+        _.each(program.interacts, (interactBlock: string[]): void => {
             let interact: Interact = new Interact();
             let interactWhenWords: string[] = interactBlock.splice(0, 1)[0].split(' ');
             interact.setWhen(parseInt(interactWhenWords[1]), parseInt(interactWhenWords[2]));
