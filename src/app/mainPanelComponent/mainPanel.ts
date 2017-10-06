@@ -23,6 +23,7 @@ export class MyDirective {
     cardSectionHeight: number;
     cardWidth: number;
     cardHeight: number;
+    fontWidth: number;
     fontHeight: number;
     cornerMargin: number;
     table: Table;
@@ -43,7 +44,8 @@ export class MyDirective {
         this.cardSectionHeight = (1 - this.tableMargin) / tableHeight;
         this.cardWidth = this.cardSectionWidth - this.tableMargin;
         this.cardHeight = this.cardSectionHeight - this.tableMargin;
-        this.fontHeight = 4;
+        this.fontWidth = 2.5;
+        this.fontHeight = 8;
         this.cornerMargin = 5;
     }
 
@@ -73,7 +75,7 @@ export class MyDirective {
             this.drawCanvasRect(left, top, width, height, color, true);
         this.drawCanvasRect(left, top, width, height, borderColor, false);
         this.drawCanvasText(cornerText, left + this.cornerMargin, top + this.fontHeight + this.cornerMargin);
-        this.drawCanvasText(centerText, left + width / 2, top + height / 2 + this.fontHeight);
+        this.drawCanvasText(centerText, left + width / 2 - this.fontWidth * centerText.length, top + height / 2 + this.fontHeight / 2);
     }
 
     drawHighlight(highlight: Pos): void {
@@ -81,7 +83,7 @@ export class MyDirective {
     }
 
     drawDeck(deck: Deck): void {
-        this.drawRect(deck.x, deck.y, null, '#000', '', '' + deck.getString());
+        this.drawRect(deck.x, deck.y, null, '#000', '' + deck.getString(), '' + deck.getString());
     }
 
     drawTable(table: Table): void {

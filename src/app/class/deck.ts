@@ -10,6 +10,12 @@ export class Deck {
     readonly WHITE_CLUB: string = '\u2667';
     readonly WHITE_HEART: string = '\u2661';
     readonly WHITE_DIAMOND: string = '\u2662';
+    readonly SUITE_MAP: { [key: string]: string; } = {
+        's': this.BLACK_SPADE,
+        'c': this.BLACK_CLUB,
+        'h': this.WHITE_HEART,
+        'd': this.WHITE_DIAMOND
+    };
 
     x: number;
     y: number;
@@ -63,6 +69,9 @@ export class Deck {
     }
 
     getString(): string {
-        return _.last(this.cards);
+        let lastCard: string = _.last(this.cards);
+        if (!lastCard)
+            return 'xXx';
+        return this.SUITE_MAP[lastCard[0]] + lastCard[1];
     }
 }
