@@ -86,9 +86,15 @@ export class MyDirective {
         if (deck.cards.length > 1 && deck.horiz > 0) {
             _.each(deck.cards, (card: string, index: number): void => {
                 let text: string = deck.getCardString(card);
-                this.drawRect(deck.x + deck.horiz * index / (deck.cards.length - 1), deck.y, '#fff', '#000', text, text);
+                let shift: number = deck.horiz * index / (deck.cards.length - 1);
+                this.drawRect(deck.x + shift, deck.y, '#fff', '#000', text, text);
             });
         } else if (deck.cards.length > 1 && deck.vert > 0) {
+            _.each(deck.cards, (card: string, index: number): void => {
+                let text: string = deck.getCardString(card);
+                let shift: number = deck.vert * index / (deck.cards.length - 1);
+                this.drawRect(deck.x, deck.y + shift, '#fff', '#000', text, text);
+            });
         } else
             this.drawRect(deck.x, deck.y, null, '#fff', deck.getString(), deck.getString());
     }

@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import * as _ from 'underscore';
-import {Program} from '../class/program';
-import {Table} from '../class/table';
-import {Deck} from '../class/deck';
-import {Interact} from '../class/interact';
+import {Injectable} from "@angular/core";
+import * as _ from "underscore";
+import {Program} from "../class/program";
+import {Table} from "../class/table";
+import {Deck} from "../class/deck";
+import {Interact} from "../class/interact";
 
 @Injectable()
 export class TableCreatorService {
@@ -16,9 +16,9 @@ export class TableCreatorService {
             `init
             table 5 5
             deck 0 0 full shuffle hidden
-            deck 1 0 empty order visible
+            deck 1 0 empty order visible horiz 3
             deck 0 1 full order hidden
-            deck 1 1 empty order visible horiz 2
+            deck 1 1 empty order visible vert 3
             
             interact
             click 0 0
