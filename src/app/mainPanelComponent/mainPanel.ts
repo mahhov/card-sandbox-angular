@@ -14,8 +14,8 @@ import * as _ from "underscore";
 export class MyDirective {
     @ViewChild('myCanvas') myCanvas: ElementRef;
     ctx: CanvasRenderingContext2D;
-    readonly canvasWidth: number = 500;
-    readonly canvasHeight: number = 500;
+    readonly canvasWidth: number = 1000;
+    readonly canvasHeight: number = 1000;
     readonly tableMargin: number = .02;
     tableWidth: number;
     tableHeight: number;

@@ -40,7 +40,9 @@ export class Table {
     handleClick(coord: Pos): void {
         _.each(this.interacts, (interact): void => {
             if (interact.whenX === coord.x && interact.whenY === coord.y)
-                this.handleIntersection(interact);
+                _.each(interact.thens, (then: Then): void => {
+                    this.handleAction(then);
+                });
         })
     }
 
@@ -52,13 +54,11 @@ export class Table {
         })
     }
 
-    private handleIntersection(interact: Interact): void {
-        _.each(interact.thens, (then: Then): void => {
-            let fromDeck: Deck = this.findDeck(then.fromX, then.fromY);
-            let toDeck: Deck = this.findDeck(then.toX, then.toY);
-            let fromCard: string[] = fromDeck.removeCard(then.fromOrder);
-            toDeck.addCard(fromCard, then.toOrder);
-        });
+    handleAction(then: Then): void {
+        let fromDeck: Deck = this.findDeck(then.fromX, then.fromY);
+        let toDeck: Deck = this.findDeck(then.toX, then.toY);
+        let fromCard: string[] = fromDeck.removeCard(then.fromOrder);
+        toDeck.addCard(fromCard, then.toOrder);
     }
 
     private findDeck(x: number, y: number): Deck {

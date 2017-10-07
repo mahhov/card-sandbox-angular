@@ -3,7 +3,7 @@ import * as _ from "underscore";
 import {Program} from "../class/program";
 import {Table} from "../class/table";
 import {Deck} from "../class/deck";
-import {Interact} from "../class/interact";
+import {Interact, Then} from "../class/interact";
 
 @Injectable()
 export class TableCreatorService {
@@ -14,19 +14,61 @@ export class TableCreatorService {
     private static getInput(): string[] {
         let input: string =
             `init
-            table 5 5
-            deck 0 0 full shuffle hidden
-            deck 1 0 empty order visible horiz 3
-            deck 0 1 full order hidden
-            deck 1 1 empty order visible vert 3
+            table 10 8
+            deck 0 0 full shuffle hnidden
+            deck 0 2 empty order visible
+            deck 2 0 empty order visible
+            deck 3 0 empty order visible
+            deck 4 0 empty order visible
+            deck 5 0 empty order visible
+            deck 2 2 empty order visible vert 6 
+            deck 3 2 empty order visible vert 6 
+            deck 4 2 empty order visible vert 6 
+            deck 5 2 empty order visible vert 6 
+            deck 6 2 empty order visible vert 6 
+            deck 7 2 empty order visible vert 6 
+            move 0 0 top 2 2 top                     
+            move 0 0 top 3 2 top                     
+            move 0 0 top 3 2 top                     
+            move 0 0 top 4 2 top                     
+            move 0 0 top 4 2 top                     
+            move 0 0 top 4 2 top                     
+            move 0 0 top 5 2 top                     
+            move 0 0 top 5 2 top                     
+            move 0 0 top 5 2 top                     
+            move 0 0 top 5 2 top                     
+            move 0 0 top 6 2 top                     
+            move 0 0 top 6 2 top                     
+            move 0 0 top 6 2 top                     
+            move 0 0 top 6 2 top                     
+            move 0 0 top 6 2 top                     
+            move 0 0 top 7 2 top                     
+            move 0 0 top 7 2 top                     
+            move 0 0 top 7 2 top                     
+            move 0 0 top 7 2 top                     
+            move 0 0 top 7 2 top                     
+            move 0 0 top 7 2 top                     
             
             interact
+            state 0 1
             click 0 0
-            move 0 0 top 1 0 top
+            move 0 0 top 0 2 top
+            setselect -1
+            setstate 0
             
             interact
-            click 0 1
-            move 0 1 top 1 1 top`;
+            state 0
+            click 0 2
+            setselect 0 2
+            setstate 1
+            
+            interact
+            state 1
+            click 0 2
+            setselect -1
+            setstate 0
+            
+            `;
 
         let lines = input.split('\n');
         return _.map(lines, (line: string): string => line.trim());
@@ -63,13 +105,17 @@ export class TableCreatorService {
                 deck.setPos(parseInt(words[1]), parseInt(words[2]));
                 deck.setProperties(words.splice(3));
                 table.addDeck(deck);
+            } else if (words[0] === 'move') {
+                let then: Then = new Then(words);
+                table.handleAction(then);
             }
         });
 
         _.each(program.interacts, (interactBlock: string[]): void => {
             let interact: Interact = new Interact();
-            let interactWhenWords: string[] = interactBlock.splice(0, 1)[0].split(' ');
-            interact.setWhen(parseInt(interactWhenWords[1]), parseInt(interactWhenWords[2]));
+            let interactStateWords: string[] = interactBlock.shift().split(' ');
+            let interactWhenWords: string[] = interactBlock.shift().split(' ');
+            interact.setWhen(parseInt(interactStateWords[1]), parseInt(interactWhenWords[1]), parseInt(interactWhenWords[2]));
             _.each(interactBlock, (interactDoLine: string): void => {
                 interact.addThen(interactDoLine.split(' '));
             });
