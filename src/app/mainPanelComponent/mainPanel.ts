@@ -95,8 +95,10 @@ export class MyDirective {
                 let shift: number = deck.vert * index / (deck.cards.length - 1);
                 this.drawRect(deck.x, deck.y + shift, '#fff', '#000', text, text);
             });
-        } else
-            this.drawRect(deck.x, deck.y, null, '#fff', deck.getString(), deck.getString());
+        } else if (deck.cards.length > 1)
+            this.drawRect(deck.x, deck.y, null, '#fff', deck.cards.length + '', deck.getString());
+        else
+            this.drawRect(deck.x, deck.y, null, '#fff', '', deck.getString());
     }
 
     drawTable(table: Table): void {
