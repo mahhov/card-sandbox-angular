@@ -21,53 +21,52 @@ export class TableCreatorService {
             deck 3 0 empty order visible
             deck 4 0 empty order visible
             deck 5 0 empty order visible
-            deck 2 2 empty order visible vert 6 
-            deck 3 2 empty order visible vert 6 
-            deck 4 2 empty order visible vert 6 
-            deck 5 2 empty order visible vert 6 
-            deck 6 2 empty order visible vert 6 
-            deck 7 2 empty order visible vert 6 
-            move 0 0 top 2 2 top                     
-            move 0 0 top 3 2 top                     
-            move 0 0 top 3 2 top                     
-            move 0 0 top 4 2 top                     
-            move 0 0 top 4 2 top                     
-            move 0 0 top 4 2 top                     
-            move 0 0 top 5 2 top                     
-            move 0 0 top 5 2 top                     
-            move 0 0 top 5 2 top                     
-            move 0 0 top 5 2 top                     
-            move 0 0 top 6 2 top                     
-            move 0 0 top 6 2 top                     
-            move 0 0 top 6 2 top                     
-            move 0 0 top 6 2 top                     
-            move 0 0 top 6 2 top                     
-            move 0 0 top 7 2 top                     
-            move 0 0 top 7 2 top                     
-            move 0 0 top 7 2 top                     
-            move 0 0 top 7 2 top                     
-            move 0 0 top 7 2 top                     
-            move 0 0 top 7 2 top                     
-            
+            deck 2 2 empty order visible vert -1
+            deck 3 2 empty order visible vert -1
+            deck 4 2 empty order visible vert -1
+            deck 5 2 empty order visible vert -1
+            deck 6 2 empty order visible vert -1
+            deck 7 2 empty order visible vert -1
+            move 0 0 top 2 2 top
+            move 0 0 top 3 2 top
+            move 0 0 top 3 2 top
+            move 0 0 top 4 2 top
+            move 0 0 top 4 2 top
+            move 0 0 top 4 2 top
+            move 0 0 top 5 2 top
+            move 0 0 top 5 2 top
+            move 0 0 top 5 2 top
+            move 0 0 top 5 2 top
+            move 0 0 top 6 2 top
+            move 0 0 top 6 2 top
+            move 0 0 top 6 2 top
+            move 0 0 top 6 2 top
+            move 0 0 top 6 2 top
+            move 0 0 top 7 2 top
+            move 0 0 top 7 2 top
+            move 0 0 top 7 2 top
+            move 0 0 top 7 2 top
+            move 0 0 top 7 2 top
+            move 0 0 top 7 2 top
+
             interact
             state 0 1
             click 0 0
             move 0 0 top 0 2 top
             setselect -1
             setstate 0
-            
+
             interact
             state 0
             click 0 2
             setselect 0 2
             setstate 1
-            
+
             interact
             state 1
             click 0 2
             setselect -1
             setstate 0
-            
             `;
 
         let lines = input.split('\n');

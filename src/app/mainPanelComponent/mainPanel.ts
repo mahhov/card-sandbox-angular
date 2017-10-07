@@ -17,6 +17,7 @@ export class MyDirective {
     readonly canvasWidth: number = 1000;
     readonly canvasHeight: number = 1000;
     readonly tableMargin: number = .02;
+    readonly spreadShift: number = .2;
     tableWidth: number;
     tableHeight: number;
     cardSectionWidth: number;
@@ -83,16 +84,16 @@ export class MyDirective {
     }
 
     drawDeck(deck: Deck): void {
-        if (deck.cards.length > 1 && deck.horiz > 0) {
+        if (deck.cards.length > 1 && deck.horiz !== 0) {
             _.each(deck.cards, (card: string[], index: number): void => {
                 let text: string = deck.getCardString(card);
-                let shift: number = deck.horiz * index / (deck.cards.length - 1);
+                let shift: number = deck.horiz > 0 ? deck.horiz * index / (deck.cards.length - 1) : this.spreadShift * index;
                 this.drawRect(deck.x + shift, deck.y, '#fff', '#000', text, text);
             });
-        } else if (deck.cards.length > 1 && deck.vert > 0) {
+        } else if (deck.cards.length > 1 && deck.vert !== 0) {
             _.each(deck.cards, (card: string[], index: number): void => {
                 let text: string = deck.getCardString(card);
-                let shift: number = deck.vert * index / (deck.cards.length - 1);
+                let shift: number = deck.vert > 0 ? deck.vert * index / (deck.cards.length - 1) : this.spreadShift * index;
                 this.drawRect(deck.x, deck.y + shift, '#fff', '#000', text, text);
             });
         } else if (deck.cards.length > 1)
