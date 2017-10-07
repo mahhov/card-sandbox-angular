@@ -84,13 +84,13 @@ export class MyDirective {
 
     drawDeck(deck: Deck): void {
         if (deck.cards.length > 1 && deck.horiz > 0) {
-            _.each(deck.cards, (card: string, index: number): void => {
+            _.each(deck.cards, (card: string[], index: number): void => {
                 let text: string = deck.getCardString(card);
                 let shift: number = deck.horiz * index / (deck.cards.length - 1);
                 this.drawRect(deck.x + shift, deck.y, '#fff', '#000', text, text);
             });
         } else if (deck.cards.length > 1 && deck.vert > 0) {
-            _.each(deck.cards, (card: string, index: number): void => {
+            _.each(deck.cards, (card: string[], index: number): void => {
                 let text: string = deck.getCardString(card);
                 let shift: number = deck.vert * index / (deck.cards.length - 1);
                 this.drawRect(deck.x, deck.y + shift, '#fff', '#000', text, text);

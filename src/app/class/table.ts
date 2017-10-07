@@ -14,11 +14,11 @@ export class Table {
     static readonly possibleDeckOrder: string[] = ['order', 'shuffle'];
     static readonly possibleDeckVisibility: string[] = ['visible', 'hidden'];
 
-    static readonly fullDeck: string[] = ((): string[] => {
-        let product: string[] = [];
+    static readonly fullDeck: string[][] = ((): string[][] => {
+        let product: string[][] = [];
         _.each(['c', 'd', 's', 'h'], (suit: string): void => {
             _.each(_.range(13), (num: number): void => {
-                product.push(suit + (num + 1));
+                product.push([suit, '' + (num + 1)]);
             });
         });
         return product;
@@ -56,7 +56,7 @@ export class Table {
         _.each(interact.thens, (then: Then): void => {
             let fromDeck: Deck = this.findDeck(then.fromX, then.fromY);
             let toDeck: Deck = this.findDeck(then.toX, then.toY);
-            let fromCard: string = fromDeck.removeCard(then.fromOrder);
+            let fromCard: string[] = fromDeck.removeCard(then.fromOrder);
             toDeck.addCard(fromCard, then.toOrder);
         });
     }

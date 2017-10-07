@@ -24,7 +24,7 @@ export class Deck {
     visibility: string;
     horiz: number;
     vert: number;
-    cards: string[];
+    cards: string[][];
 
     constructor() {
         this.contain = Table.possibleDeckContain[0];
@@ -55,7 +55,7 @@ export class Deck {
             this.cards = [];
 
         if (this.order === 'shuffle')
-            this.cards = _.shuffle(this.cards) as string[];
+            this.cards = _.shuffle(this.cards) as string[][];
 
         let horizSpread = _.indexOf(words, 'horiz');
         let vertSpread = _.indexOf(words, 'vert');
@@ -65,14 +65,14 @@ export class Deck {
             this.vert = parseInt(words[vertSpread + 1]);
     }
 
-    removeCard(order: string): string {
+    removeCard(order: string): string[] {
         if (order === 'top')
             return this.cards.pop();
         else if (order === 'bottom')
             return this.cards.shift();
     }
 
-    addCard(card: string, order: string) {
+    addCard(card: string[], order: string) {
         if (order === 'top')
             return this.cards.push(card);
         else if (order === 'bottom')
@@ -80,13 +80,13 @@ export class Deck {
     }
 
     getString(): string {
-        let lastCard: string = _.last(this.cards);
+        let lastCard: string[] = _.last(this.cards);
         if (!lastCard)
             return 'xXx';
         return this.getCardString(lastCard);
     }
 
-    getCardString(card: string): string {
+    getCardString(card: string[]): string {
         return this.SUITE_MAP[card[0]] + card[1];
     }
 }
