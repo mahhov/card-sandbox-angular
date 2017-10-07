@@ -83,10 +83,14 @@ export class Deck {
         let lastCard: string[] = _.last(this.cards);
         if (!lastCard)
             return 'xXx';
-        return this.getCardString(lastCard);
+        if (this.visibility === 'visible')
+            return this.getCardString(lastCard);
+        return '';
     }
 
     getCardString(card: string[]): string {
-        return this.SUITE_MAP[card[0]] + card[1];
+        if (this.visibility === 'visible')
+            return this.SUITE_MAP[card[0]] + card[1];
+        return '';
     }
 }
