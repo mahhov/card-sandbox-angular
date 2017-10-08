@@ -3,7 +3,8 @@ import * as _ from "underscore";
 import {Program} from "../class/program";
 import {Table} from "../class/table";
 import {Deck} from "../class/deck";
-import {Interact, Then} from "../class/interact";
+import {Interact} from "../class/interact";
+import {Action} from "../class/action/action";
 
 @Injectable()
 export class TableCreatorService {
@@ -104,9 +105,9 @@ export class TableCreatorService {
                 deck.setPos(parseInt(words[1]), parseInt(words[2]));
                 deck.setProperties(words.splice(3));
                 table.addDeck(deck);
-            } else if (words[0] === 'move') {
-                let then: Then = new Then(words);
-                table.handleAction(then);
+            } else {
+                let action: Action = new Action(words);
+                action.do(table);
             }
         });
 
@@ -116,7 +117,11 @@ export class TableCreatorService {
             let interactWhenWords: string[] = interactBlock.shift().split(' ');
             interact.setWhen(parseInt(interactStateWords[1]), parseInt(interactWhenWords[1]), parseInt(interactWhenWords[2]));
             _.each(interactBlock, (interactDoLine: string): void => {
-                interact.addThen(interactDoLine.split(' '));
+                let words: string[] = interactDoLine.split(' ');
+                if (words[0] === 'if')
+                    interact.addCondition(words);
+                else
+                    interact.addAction(words);
             });
             table.addInteract(interact);
         });

@@ -1,7 +1,8 @@
 import * as _ from "underscore";
 import {Deck} from "./deck";
 import {Pos} from "./pos";
-import {Interact, Then} from "./interact";
+import {Interact} from "./interact";
+import {Condition} from "./condition/condition";
 
 export class Table {
     width: number;
@@ -39,11 +40,13 @@ export class Table {
 
     handleClick(coord: Pos): void {
         _.each(this.interacts, (interact): void => {
-            if (interact.whenX === coord.x && interact.whenY === coord.y)
-                _.each(interact.thens, (then: Then): void => {
-                    this.handleAction(then);
-                });
-        })
+                if (interact.whenX === coord.x && interact.whenY === coord.y)
+                    if (_.every(interact.conditions, (condition: Condition): boolean => {
+                            return condition.verify(this);
+                        }))
+                        _.invoke(interact.actions, 'do', this);
+            }
+        )
     }
 
     handleMouse(coord: Pos): void {
@@ -54,14 +57,8 @@ export class Table {
         })
     }
 
-    handleAction(then: Then): void {
-        let fromDeck: Deck = this.findDeck(then.fromX, then.fromY);
-        let toDeck: Deck = this.findDeck(then.toX, then.toY);
-        let fromCard: string[] = fromDeck.removeCard(then.fromOrder);
-        toDeck.addCard(fromCard, then.toOrder);
-    }
-
-    private findDeck(x: number, y: number): Deck {
+    private
+    findDeck(x: number, y: number): Deck {
         return _.find(this.decks, (deck: Deck): boolean => {
             return deck.x === x && deck.y === y;
         });
