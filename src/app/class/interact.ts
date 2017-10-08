@@ -1,5 +1,5 @@
-import {Action} from "./action/action";
-import {Condition} from "./condition/condition";
+import {Action} from './action/action';
+import {Condition} from './condition/condition';
 
 export class Interact {
     whenState: number;

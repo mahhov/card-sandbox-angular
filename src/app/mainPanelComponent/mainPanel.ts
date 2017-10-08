@@ -1,9 +1,9 @@
-import {Pos} from "../class/pos";
-import {Component, ElementRef, ViewChild} from "@angular/core";
-import {TableCreatorService} from "../layer/tableCreatorService";
-import {Table} from "../class/table";
-import {Deck} from "../class/deck";
-import * as _ from "underscore";
+import {Pos} from '../class/pos';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {TableCreatorService} from '../layer/tableCreatorService';
+import {Table} from '../class/table';
+import {Deck} from '../class/deck';
+import * as _ from 'underscore';
 
 @Component({
     selector: 'main-panel',
