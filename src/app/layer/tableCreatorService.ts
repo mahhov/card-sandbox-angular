@@ -53,7 +53,16 @@ export class TableCreatorService {
             interact
             state 0 1
             click 0 0
+            if notempty 0 0
             move 0 0 top 0 2 top
+            setselect -1
+            setstate 0
+            
+            interact
+            state 0 1
+            click 0 0
+            if empty 0 0
+            moveall 0 2 0 0 top
             setselect -1
             setstate 0
 
@@ -117,7 +126,7 @@ export class TableCreatorService {
             _.each(interactBlock, (interactDoLine: string): void => {
                 let words: string[] = interactDoLine.split(' ');
                 if (words[0] === 'if')
-                    interact.addCondition(words);
+                    interact.addCondition(_.rest(words));
                 else
                     interact.addAction(words);
             });

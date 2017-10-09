@@ -2,6 +2,7 @@ import * as _ from "underscore";
 import {Action} from "./action/action";
 import {Condition} from "./condition/condition";
 import {ActionCreator} from "./action/actionCreator";
+import {ConditionCreator} from "./condition/conditionCreator";
 
 export class Interact {
     whenStates: number[];
@@ -19,7 +20,7 @@ export class Interact {
     }
 
     addCondition(words: string[]): void {
-        let condition: Condition = Condition.create(words);
+        let condition: Condition = ConditionCreator.create(words);
         if (condition)
             this.conditions.push(condition);
     }
