@@ -1,5 +1,6 @@
-import {Action} from './action/action';
-import {Condition} from './condition/condition';
+import {Action} from "./action/action";
+import {Condition} from "./condition/condition";
+import {ActionCreator} from "./action/actionCreator";
 
 export class Interact {
     whenState: number;
@@ -15,33 +16,14 @@ export class Interact {
     }
 
     addCondition(words: string[]): void {
-        this.conditions.push(new Condition(words));
+        let condition: Condition = Condition.create(words);
+        if (condition)
+            this.conditions.push(condition);
     }
 
     addAction(words: string[]): void {
-        this.actions.push(new Action(words));
+        let action: Action = ActionCreator.create(words);
+        if (action)
+            this.actions.push(action);
     }
 }
-
-// export class Then {
-//     action: string;
-//     fromX: number;
-//     fromY: number;
-//     fromOrder: string;
-//     toX: number;
-//     toY: number;
-//     toOrder: string;
-//
-//     constructor(words: string[]) {
-//         this.action = words[0];
-//         if (this.action === 'move') {
-//             this.fromX = parseInt(words[1]);
-//             this.fromY = parseInt(words[2]);
-//             this.fromOrder = words[3];
-//             this.toX = parseInt(words[4]);
-//             this.toY = parseInt(words[5]);
-//             this.toOrder = words[6];
-//         } else
-//             this.action = null;
-//     }
-// }

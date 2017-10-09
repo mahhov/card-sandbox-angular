@@ -44,7 +44,7 @@ export class Table {
                     if (_.every(interact.conditions, (condition: Condition): boolean => {
                             return condition.verify(this);
                         }))
-                        _.invoke(interact.actions, 'do', this);
+                        _.invoke(interact.actions, 'act', this);
             }
         )
     }

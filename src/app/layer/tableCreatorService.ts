@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import * as _ from 'underscore';
-import {Program} from '../class/program';
-import {Table} from '../class/table';
-import {Deck} from '../class/deck';
-import {Interact} from '../class/interact';
-import {Action} from '../class/action/action';
+import {Injectable} from "@angular/core";
+import * as _ from "underscore";
+import {Program} from "../class/program";
+import {Table} from "../class/table";
+import {Deck} from "../class/deck";
+import {Interact} from "../class/interact";
+import {ActionCreator} from "../class/action/actionCreator";
 
 @Injectable()
 export class TableCreatorService {
@@ -105,10 +105,8 @@ export class TableCreatorService {
                 deck.setPos(parseInt(words[1]), parseInt(words[2]));
                 deck.setProperties(words.splice(3));
                 table.addDeck(deck);
-            } else {
-                let action: Action = new Action(words);
-                action.do(table);
-            }
+            } else
+                ActionCreator.create(words).act(table);
         });
 
         _.each(program.interacts, (interactBlock: string[]): void => {

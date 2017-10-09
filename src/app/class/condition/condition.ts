@@ -1,7 +1,8 @@
-import {Table} from '../table';
+import {Table} from "../table";
 
 export class Condition {
-    constructor(words: string[]) {
+    static create(words: string[]): Condition {
+        return null;
     }
 
     verify(table: Table): boolean {
