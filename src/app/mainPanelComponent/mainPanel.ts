@@ -1,9 +1,9 @@
-import {Pos} from '../class/pos';
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {TableCreatorService} from '../layer/tableCreatorService';
-import {Table} from '../class/table';
-import {Deck} from '../class/deck';
-import * as _ from 'underscore';
+import {Pos} from "../class/pos";
+import {Component, ElementRef, ViewChild} from "@angular/core";
+import {TableCreatorService} from "../layer/tableCreatorService";
+import {Table} from "../class/table";
+import {Deck} from "../class/deck";
+import * as _ from "underscore";
 
 @Component({
     selector: 'main-panel',
@@ -83,6 +83,10 @@ export class MyDirective {
         this.drawRect(highlight.x, highlight.y, '#ffb', '#000', '', '');
     }
 
+    drawSelect(highlight: Pos): void {
+        this.drawRect(highlight.x, highlight.y, '#bbf', '#000', '', '');
+    }
+
     drawDeck(deck: Deck): void {
         if (deck.cards.length > 1 && deck.horiz !== 0) {
             _.each(deck.cards, (card: string[], index: number): void => {
@@ -108,6 +112,8 @@ export class MyDirective {
         _.each(table.highlights, (highlight: Pos): void => {
             this.drawHighlight(highlight);
         });
+        if (table.select)
+            this.drawSelect(table.select);
         _.each(table.decks, (deck: Deck): void => {
             this.drawDeck(deck);
         });

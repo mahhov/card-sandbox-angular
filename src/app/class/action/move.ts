@@ -3,7 +3,6 @@ import {Deck} from "../deck";
 import {Action} from "./action";
 
 export class Move extends Action {
-    action: string;
     fromX: number;
     fromY: number;
     fromOrder: string;

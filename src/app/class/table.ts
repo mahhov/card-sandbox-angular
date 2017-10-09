@@ -1,8 +1,8 @@
-import * as _ from 'underscore';
-import {Deck} from './deck';
-import {Pos} from './pos';
-import {Interact} from './interact';
-import {Condition} from './condition/condition';
+import * as _ from "underscore";
+import {Deck} from "./deck";
+import {Pos} from "./pos";
+import {Interact} from "./interact";
+import {Condition} from "./condition/condition";
 
 export class Table {
     width: number;
@@ -10,6 +10,8 @@ export class Table {
     decks: Deck[] = [];
     interacts: Interact[] = [];
     highlights: Pos[] = [];
+    select: Pos;
+    state: number = 0;
 
     static readonly possibleDeckContain: string[] = ['empty', 'full'];
     static readonly possibleDeckOrder: string[] = ['order', 'shuffle'];
@@ -39,14 +41,14 @@ export class Table {
     }
 
     handleClick(coord: Pos): void {
-        _.each(this.interacts, (interact): void => {
-                if (interact.whenX === coord.x && interact.whenY === coord.y)
-                    if (_.every(interact.conditions, (condition: Condition): boolean => {
-                            return condition.verify(this);
-                        }))
-                        _.invoke(interact.actions, 'act', this);
-            }
-        )
+        let interact: Interact = _.find(this.interacts, (interact): boolean => {
+            if (interact.whenX === coord.x && interact.whenY === coord.y && _.contains(interact.whenStates, this.state))
+                return _.every(interact.conditions, (condition: Condition): boolean => {
+                    return condition.verify(this);
+                });
+        });
+        if (interact)
+            _.invoke(interact.actions, 'act', this);
     }
 
     handleMouse(coord: Pos): void {

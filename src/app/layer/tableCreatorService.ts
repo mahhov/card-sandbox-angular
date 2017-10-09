@@ -113,7 +113,7 @@ export class TableCreatorService {
             let interact: Interact = new Interact();
             let interactStateWords: string[] = interactBlock.shift().split(' ');
             let interactWhenWords: string[] = interactBlock.shift().split(' ');
-            interact.setWhen(parseInt(interactStateWords[1]), parseInt(interactWhenWords[1]), parseInt(interactWhenWords[2]));
+            interact.setWhen(_.rest(interactStateWords), parseInt(interactWhenWords[1]), parseInt(interactWhenWords[2]));
             _.each(interactBlock, (interactDoLine: string): void => {
                 let words: string[] = interactDoLine.split(' ');
                 if (words[0] === 'if')
