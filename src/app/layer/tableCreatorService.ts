@@ -29,26 +29,11 @@ export class TableCreatorService {
             deck 6 2 empty order visible vert -1
             deck 7 2 empty order visible vert -1
             move (0 0 top) (2 2 top)
-            move (0 0 top) (3 2 top)
-            move (0 0 top) (3 2 top)
-            move (0 0 top) (4 2 top)
-            move (0 0 top) (4 2 top)
-            move (0 0 top) (4 2 top)
-            move (0 0 top) (5 2 top)
-            move (0 0 top) (5 2 top)
-            move (0 0 top) (5 2 top)
-            move (0 0 top) (5 2 top)
-            move (0 0 top) (6 2 top)
-            move (0 0 top) (6 2 top)
-            move (0 0 top) (6 2 top)
-            move (0 0 top) (6 2 top)
-            move (0 0 top) (6 2 top)
-            move (0 0 top) (7 2 top)
-            move (0 0 top) (7 2 top)
-            move (0 0 top) (7 2 top)
-            move (0 0 top) (7 2 top)
-            move (0 0 top) (7 2 top)
-            move (0 0 top) (7 2 top)
+            move (stack 0 0 2) (3 2 top)
+            move (stack 0 0 3) (4 2 top)
+            move (stack 0 0 4) (5 2 top)
+            move (stack 0 0 5) (6 2 top)
+            move (stack 0 0 6) (7 2 top)
 
             interact
             state 0 1
@@ -62,7 +47,7 @@ export class TableCreatorService {
             state 0 1
             click 0 0
             if empty 0 0
-            move (stack 0 2) (0 0 top)
+            move (stack 0 2 all) (0 0 top)
             setselect -1
             setstate 0
 
