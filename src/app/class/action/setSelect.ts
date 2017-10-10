@@ -1,17 +1,18 @@
-import {Pos} from "../selector/pos";
+import * as _ from "underscore";
+import {Selector} from "../selector/selector";
+import {SelectorCreator} from "../selector/selectorCreator";
 import {Table} from "../table";
 import {Action} from "./action";
 
 export class SetSelect extends Action {
-    toSelect: Pos;
+    toSelect: Selector;
 
     constructor(words: string[]) {
         super();
-        if (words.length > 2)
-            this.toSelect = new Pos(parseInt(words[1]), parseInt(words[2]));
+        this.toSelect = SelectorCreator.create(_.rest(words));
     }
 
     act(table: Table): void {
-        table.select = this.toSelect;
+        table.select = this.toSelect.select(table)[0];
     }
 }

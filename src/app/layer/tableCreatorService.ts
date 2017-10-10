@@ -28,33 +28,33 @@ export class TableCreatorService {
             deck 5 2 empty order visible vert -1
             deck 6 2 empty order visible vert -1
             deck 7 2 empty order visible vert -1
-            move (card 0 0 top) (card 2 2 top)
-            move (card 0 0 top) (card 3 2 top)
-            move (card 0 0 top) (card 3 2 top)
-            move (card 0 0 top) (card 4 2 top)
-            move (card 0 0 top) (card 4 2 top)
-            move (card 0 0 top) (card 4 2 top)
-            move (card 0 0 top) (card 5 2 top)
-            move (card 0 0 top) (card 5 2 top)
-            move (card 0 0 top) (card 5 2 top)
-            move (card 0 0 top) (card 5 2 top)
-            move (card 0 0 top) (card 6 2 top)
-            move (card 0 0 top) (card 6 2 top)
-            move (card 0 0 top) (card 6 2 top)
-            move (card 0 0 top) (card 6 2 top)
-            move (card 0 0 top) (card 6 2 top)
-            move (card 0 0 top) (card 7 2 top)
-            move (card 0 0 top) (card 7 2 top)
-            move (card 0 0 top) (card 7 2 top)
-            move (card 0 0 top) (card 7 2 top)
-            move (card 0 0 top) (card 7 2 top)
-            move (card 0 0 top) (card 7 2 top)
+            move (0 0 top) (2 2 top)
+            move (0 0 top) (3 2 top)
+            move (0 0 top) (3 2 top)
+            move (0 0 top) (4 2 top)
+            move (0 0 top) (4 2 top)
+            move (0 0 top) (4 2 top)
+            move (0 0 top) (5 2 top)
+            move (0 0 top) (5 2 top)
+            move (0 0 top) (5 2 top)
+            move (0 0 top) (5 2 top)
+            move (0 0 top) (6 2 top)
+            move (0 0 top) (6 2 top)
+            move (0 0 top) (6 2 top)
+            move (0 0 top) (6 2 top)
+            move (0 0 top) (6 2 top)
+            move (0 0 top) (7 2 top)
+            move (0 0 top) (7 2 top)
+            move (0 0 top) (7 2 top)
+            move (0 0 top) (7 2 top)
+            move (0 0 top) (7 2 top)
+            move (0 0 top) (7 2 top)
 
             interact
             state 0 1
             click 0 0
             if notempty 0 0
-            move 0 0 top 0 2 top
+            move (0 0 top) (0 2 top)
             setselect -1
             setstate 0
             
@@ -62,7 +62,7 @@ export class TableCreatorService {
             state 0 1
             click 0 0
             if empty 0 0
-            moveall 0 2 0 0 top
+            move (stack 0 2) (0 0 top)
             setselect -1
             setstate 0
 

@@ -1,21 +1,23 @@
 import * as _ from "underscore";
 import {Deck} from "../deck";
+import {Pos} from "../selector/pos";
+import {Selector} from "../selector/selector";
+import {SelectorCreator} from "../selector/selectorCreator";
 import {Table} from "../table";
 import {Condition} from "./condition";
 
 export class Empty extends Condition {
-    x: number;
-    y: number;
+    selector: Selector;
 
     constructor(words: string[]) {
         super();
-        this.x = parseInt(words[1]);
-        this.y = parseInt(words[2]);
+        this.selector = SelectorCreator.create(_.rest(words));
     }
 
     verify(table: Table): boolean {
-        return !_.some(table.decks, (deck: Deck): boolean => {
-            return deck.x === this.x && deck.y === this.y && deck.cards.length > 0;
+        return _.every(this.selector.select(table), (pos: Pos): boolean => {
+            let deck: Deck = table.findDeck(pos.x, pos.y);
+            return !(deck && deck.x === pos.x && deck.y === pos.y && deck.cards.length > 0);
         });
     }
 }

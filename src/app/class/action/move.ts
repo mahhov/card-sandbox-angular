@@ -1,29 +1,34 @@
+import * as _ from "underscore";
 import {Deck} from "../deck";
+import {Pos} from "../selector/pos";
+import {Selector} from "../selector/selector";
+import {SelectorCreator} from "../selector/selectorCreator";
 import {Table} from "../table";
 import {Action} from "./action";
 
 export class Move extends Action {
-    fromX: number;
-    fromY: number;
-    fromOrder: string;
-    toX: number;
-    toY: number;
-    toOrder: string;
+    from: Selector;
+    to: Selector;
 
     constructor(words: string[]) {
         super();
-        this.fromX = parseInt(words[1]);
-        this.fromY = parseInt(words[2]);
-        this.fromOrder = words[3];
-        this.toX = parseInt(words[4]);
-        this.toY = parseInt(words[5]);
-        this.toOrder = words[6];
+        this.from = SelectorCreator.create(_.rest(words));
+        this.to = SelectorCreator.create(_.rest(words, this.from.consumed + 1));
     }
 
     act(table: Table): void {
-        let fromDeck: Deck = table.findDeck(this.fromX, this.fromY);
-        let toDeck: Deck = table.findDeck(this.toX, this.toY);
-        let fromCard: string[] = fromDeck.removeCard(this.fromOrder);
-        toDeck.addCard(fromCard, this.toOrder);
+        let fromPoss: Pos[] = this.from.select(table);
+        let toPoss: Pos[] = this.to.select(table);
+
+        let toIndex: number = 0;
+        _.each(fromPoss, (fromPos: Pos): void => {
+            let toPos: Pos = toPoss[toIndex];
+            let fromDeck: Deck = table.findDeck(fromPos.x, fromPos.y);
+            let toDeck: Deck = table.findDeck(toPos.x, toPos.y);
+            let fromCard: string[] = fromDeck.removeCard(fromPos.order);
+            toDeck.addCard(fromCard, toPos.order);
+            if (++toIndex === toPoss.length)
+                toIndex = 0;
+        });
     }
 }

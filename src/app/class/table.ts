@@ -59,7 +59,6 @@ export class Table {
         })
     }
 
-    private
     findDeck(x: number, y: number): Deck {
         return _.find(this.decks, (deck: Deck): boolean => {
             return deck.x === x && deck.y === y;
