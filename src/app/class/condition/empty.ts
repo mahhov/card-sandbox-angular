@@ -1,7 +1,7 @@
 import * as _ from "underscore";
+import {Deck} from "../deck";
 import {Table} from "../table";
 import {Condition} from "./condition";
-import {Deck} from "../deck";
 
 export class Empty extends Condition {
     x: number;

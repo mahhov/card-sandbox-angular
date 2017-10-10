@@ -1,6 +1,6 @@
+import {Pos} from "../selector/pos";
 import {Table} from "../table";
 import {Action} from "./action";
-import {Pos} from "../pos";
 
 export class SetSelect extends Action {
     toSelect: Pos;

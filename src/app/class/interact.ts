@@ -1,7 +1,7 @@
 import * as _ from "underscore";
 import {Action} from "./action/action";
-import {Condition} from "./condition/condition";
 import {ActionCreator} from "./action/actionCreator";
+import {Condition} from "./condition/condition";
 import {ConditionCreator} from "./condition/conditionCreator";
 
 export class Interact {

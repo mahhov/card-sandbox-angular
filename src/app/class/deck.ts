@@ -1,5 +1,5 @@
-import {Table} from './table';
-import * as _ from 'underscore';
+import * as _ from "underscore";
+import {Table} from "./table";
 
 export class Deck {
     readonly BLACK_SPADE: string = '\u2660';

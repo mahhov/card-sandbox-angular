@@ -1,7 +1,7 @@
 import * as _ from "underscore";
+import {Deck} from "../deck";
 import {Table} from "../table";
 import {Condition} from "./condition";
-import {Deck} from "../deck";
 
 export class NotEmpty extends Condition {
     x: number;

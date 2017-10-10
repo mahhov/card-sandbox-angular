@@ -1,5 +1,5 @@
-import {Table} from "../table";
 import {Deck} from "../deck";
+import {Table} from "../table";
 import {Action} from "./action";
 
 export class Move extends Action {

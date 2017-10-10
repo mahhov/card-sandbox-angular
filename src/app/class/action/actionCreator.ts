@@ -1,8 +1,8 @@
 import {Action} from "./action";
 import {Move} from "./move";
-import {SetState} from "./setState";
-import {SetSelect} from "./setSelect";
 import {MoveAll} from "./moveAll";
+import {SetSelect} from "./setSelect";
+import {SetState} from "./setState";
 
 export class ActionCreator {
     static create(words: string[]): Action {

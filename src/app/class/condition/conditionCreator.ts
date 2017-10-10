@@ -1,6 +1,6 @@
 import {Condition} from "./condition";
-import {NotEmpty} from "./notEmpty";
 import {Empty} from "./empty";
+import {NotEmpty} from "./notEmpty";
 
 export class ConditionCreator {
     static create(words: string[]): Condition {

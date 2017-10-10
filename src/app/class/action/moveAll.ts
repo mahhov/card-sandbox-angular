@@ -1,6 +1,6 @@
 import * as _ from "underscore";
-import {Table} from "../table";
 import {Deck} from "../deck";
+import {Table} from "../table";
 import {Action} from "./action";
 
 export class MoveAll extends Action {
