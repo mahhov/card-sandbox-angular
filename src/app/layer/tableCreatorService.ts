@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import * as _ from "underscore";
-import {Program} from "../class/program";
-import {Table} from "../class/table";
+import {ActionCreator} from "../class/action/actionCreator";
 import {Deck} from "../class/deck";
 import {Interact} from "../class/interact";
-import {ActionCreator} from "../class/action/actionCreator";
+import {Program} from "../class/program";
+import {Table} from "../class/table";
 
 @Injectable()
 export class TableCreatorService {
@@ -28,27 +28,27 @@ export class TableCreatorService {
             deck 5 2 empty order visible vert -1
             deck 6 2 empty order visible vert -1
             deck 7 2 empty order visible vert -1
-            move 0 0 top 2 2 top
-            move 0 0 top 3 2 top
-            move 0 0 top 3 2 top
-            move 0 0 top 4 2 top
-            move 0 0 top 4 2 top
-            move 0 0 top 4 2 top
-            move 0 0 top 5 2 top
-            move 0 0 top 5 2 top
-            move 0 0 top 5 2 top
-            move 0 0 top 5 2 top
-            move 0 0 top 6 2 top
-            move 0 0 top 6 2 top
-            move 0 0 top 6 2 top
-            move 0 0 top 6 2 top
-            move 0 0 top 6 2 top
-            move 0 0 top 7 2 top
-            move 0 0 top 7 2 top
-            move 0 0 top 7 2 top
-            move 0 0 top 7 2 top
-            move 0 0 top 7 2 top
-            move 0 0 top 7 2 top
+            move (card 0 0 top) (card 2 2 top)
+            move (card 0 0 top) (card 3 2 top)
+            move (card 0 0 top) (card 3 2 top)
+            move (card 0 0 top) (card 4 2 top)
+            move (card 0 0 top) (card 4 2 top)
+            move (card 0 0 top) (card 4 2 top)
+            move (card 0 0 top) (card 5 2 top)
+            move (card 0 0 top) (card 5 2 top)
+            move (card 0 0 top) (card 5 2 top)
+            move (card 0 0 top) (card 5 2 top)
+            move (card 0 0 top) (card 6 2 top)
+            move (card 0 0 top) (card 6 2 top)
+            move (card 0 0 top) (card 6 2 top)
+            move (card 0 0 top) (card 6 2 top)
+            move (card 0 0 top) (card 6 2 top)
+            move (card 0 0 top) (card 7 2 top)
+            move (card 0 0 top) (card 7 2 top)
+            move (card 0 0 top) (card 7 2 top)
+            move (card 0 0 top) (card 7 2 top)
+            move (card 0 0 top) (card 7 2 top)
+            move (card 0 0 top) (card 7 2 top)
 
             interact
             state 0 1
@@ -80,7 +80,7 @@ export class TableCreatorService {
             `;
 
         let lines = input.split('\n');
-        return _.map(lines, (line: string): string => line.trim());
+        return _.map(lines, (line: string): string => line.trim().replace(/[()]/g, ''));
     }
 
     private static createProgram(lines: string[]): Program {
