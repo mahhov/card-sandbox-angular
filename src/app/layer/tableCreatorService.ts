@@ -54,12 +54,20 @@ export class TableCreatorService {
             interact
             state 0
             click 0 2
-            setselect 0 2
+            if notempty 2 0
+            setselect (0 2 top)
             setstate 1
 
             interact
             state 1
             click 0 2
+            setselect -1
+            setstate 0
+            
+            interact
+            state 1
+            click 2 0
+            move (selected) (2 0 top)
             setselect -1
             setstate 0
             `;
