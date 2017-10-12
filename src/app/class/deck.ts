@@ -65,6 +65,13 @@ export class Deck {
             this.vert = parseInt(words[vertSpread + 1]);
     }
 
+    getCard(order: string): string[] {
+        if (order === 'top')
+            return _.last(this.cards);
+        else if (order === 'bottom')
+            return _.first(this.cards);
+    }
+
     removeCard(order: string): string[] {
         if (order === 'top')
             return this.cards.pop();
