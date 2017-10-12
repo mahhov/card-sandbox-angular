@@ -16,13 +16,13 @@ export class TableCreatorService {
         let input: string =
             `init
             table 10 8
-            deck 0 0 full shuffle hnidden
-            deck 0 2 empty order visible
-            deck 2 0 empty order visible
+            deck 0 0 full shuffle visible // deck
+            deck 0 2 empty order visible // draw
+            deck 2 0 empty order visible // pillars
             deck 3 0 empty order visible
             deck 4 0 empty order visible
             deck 5 0 empty order visible
-            deck 2 2 empty order visible vert -1
+            deck 2 2 empty order visible vert -1 // main
             deck 3 2 empty order visible vert -1
             deck 4 2 empty order visible vert -1
             deck 5 2 empty order visible vert -1
@@ -35,7 +35,7 @@ export class TableCreatorService {
             move (stack 0 0 5) (6 2 top)
             move (stack 0 0 6) (7 2 top)
 
-            interact
+            interact // draw
             state 0 1
             click 0 0
             if notempty 0 0
@@ -43,7 +43,7 @@ export class TableCreatorService {
             setselect -1
             setstate 0
             
-            interact
+            interact // reshuffle
             state 0 1
             click 0 0
             if empty 0 0
@@ -51,20 +51,20 @@ export class TableCreatorService {
             setselect -1
             setstate 0
 
-            interact
+            interact // select draw
             state 0
             click 0 2
             if notempty 0 2
             setselect (0 2 top)
             setstate 1
 
-            interact
+            interact // unselect draw
             state 1
             click 0 2
             setselect -1
             setstate 0
             
-            interact
+            interact // add to pillar 1
             state 1
             click 2 0
             if numericdif (selected) (2 0 top) 1
@@ -73,7 +73,7 @@ export class TableCreatorService {
             setselect -1
             setstate 0
              
-            interact
+            interact // move base to pillar 1
             state 1
             click 2 0
             if numeric (selected) 1
@@ -83,7 +83,7 @@ export class TableCreatorService {
             `;
 
         let lines = input.split('\n');
-        return _.map(lines, (line: string): string => line.trim().replace(/[()]/g, ''));
+        return _.map(lines, (line: string): string => line.replace(/(\(|\)|\/\/.*)/g, '').trim());
     }
 
     private static createProgram(lines: string[]): Program {
