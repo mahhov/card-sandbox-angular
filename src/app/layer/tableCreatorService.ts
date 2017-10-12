@@ -83,7 +83,7 @@ export class TableCreatorService {
             `;
 
         let lines = input.split('\n');
-        return _.map(lines, (line: string): string => line.replace(/(\(|\)|\/\/.*)/g, '').trim());
+        return _.map(lines, (line: string): string => line.replace(/(\(|\)|\/\/.*)/g, '').trim().toLocaleLowerCase());
     }
 
     private static createProgram(lines: string[]): Program {

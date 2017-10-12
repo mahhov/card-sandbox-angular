@@ -172,5 +172,5 @@ export class MyDirective {
 // only select highlight if interactible condition / state
 // card from string array to object
 // check null returned deck and cards
-// allow comments
+// allow variables
 // allow nested expressions and logical or's in if conditions
