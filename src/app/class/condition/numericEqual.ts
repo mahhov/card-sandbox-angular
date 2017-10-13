@@ -2,6 +2,7 @@ import * as _ from "underscore";
 import {Pos} from "../selector/pos";
 import {Selector} from "../selector/selector";
 import {SelectorCreator} from "../selector/selectorCreator";
+import {Card} from "../table/card";
 import {Table} from "../table/table";
 import {Condition} from "./condition";
 
@@ -17,8 +18,8 @@ export class NumericEqual extends Condition {
 
     verify(table: Table): boolean {
         let pos: Pos = this.selector.select(table)[0];
-        let card: string[] = table.findDeck(pos.x, pos.y).getCard(pos.order);
+        let card: Card = table.findDeck(pos.x, pos.y).getCard(pos.order);
 
-        return card[1] === this.value + '';
+        return card.num === this.value;
     }
 }

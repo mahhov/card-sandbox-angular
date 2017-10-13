@@ -1,5 +1,5 @@
 import * as _ from "underscore";
-import {Rect} from "./rect";
+import {Card} from "./card";
 import {Table} from "./table";
 
 export class Deck {
@@ -25,7 +25,7 @@ export class Deck {
     visibility: string;
     horiz: number;
     vert: number;
-    cards: string[][];
+    cards: Card[];
 
     constructor() {
         this.contain = Table.possibleDeckContain[0];
@@ -56,7 +56,7 @@ export class Deck {
             this.cards = [];
 
         if (this.order === 'shuffle')
-            this.cards = _.shuffle(this.cards) as string[][];
+            this.cards = _.shuffle(this.cards) as Card[];
 
         let horizSpread = _.indexOf(words, 'horiz');
         let vertSpread = _.indexOf(words, 'vert');
@@ -66,21 +66,21 @@ export class Deck {
             this.vert = parseInt(words[vertSpread + 1]);
     }
 
-    getCard(order: string): string[] {
+    getCard(order: string): Card {
         if (order === 'top')
             return _.last(this.cards);
         else if (order === 'bottom')
             return _.first(this.cards);
     }
 
-    removeCard(order: string): string[] {
+    removeCard(order: string): Card {
         if (order === 'top')
             return this.cards.pop();
         else if (order === 'bottom')
             return this.cards.shift();
     }
 
-    addCard(card: string[], order: string) {
+    addCard(card: Card, order: string) {
         if (order === 'top')
             return this.cards.push(card);
         else if (order === 'bottom')
@@ -88,7 +88,7 @@ export class Deck {
     }
 
     getString(): string {
-        let lastCard: string[] = _.last(this.cards);
+        let lastCard: Card = _.last(this.cards);
         if (!lastCard)
             return 'xXx';
         if (this.visibility === 'visible')
@@ -96,9 +96,9 @@ export class Deck {
         return '';
     }
 
-    getCardString(card: string[]): string {
+    getCardString(card: Card): string {
         if (this.visibility === 'visible')
-            return this.SUITE_MAP[card[0]] + card[1];
+            return this.SUITE_MAP[card.suit] + card.num;
         return '';
     }
 }

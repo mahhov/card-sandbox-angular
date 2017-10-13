@@ -1,8 +1,9 @@
 import * as _ from "underscore";
-import {Deck} from "../table/deck";
 import {Pos} from "../selector/pos";
 import {Selector} from "../selector/selector";
 import {SelectorCreator} from "../selector/selectorCreator";
+import {Card} from "../table/card";
+import {Deck} from "../table/deck";
 import {Table} from "../table/table";
 import {Action} from "./action";
 
@@ -25,7 +26,7 @@ export class Move extends Action {
             let toPos: Pos = toPoss[toIndex];
             let fromDeck: Deck = table.findDeck(fromPos.x, fromPos.y);
             let toDeck: Deck = table.findDeck(toPos.x, toPos.y);
-            let fromCard: string[] = fromDeck.removeCard(fromPos.order);
+            let fromCard: Card = fromDeck.removeCard(fromPos.order);
             toDeck.addCard(fromCard, toPos.order);
             if (++toIndex === toPoss.length)
                 toIndex = 0;

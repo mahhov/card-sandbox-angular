@@ -1,8 +1,9 @@
 import * as _ from "underscore";
 import {Condition} from "../condition/condition";
-import {Deck} from "./deck";
 import {Interact} from "../interact";
 import {Pos} from "../selector/pos";
+import {Card} from "./card";
+import {Deck} from "./deck";
 
 export class Table {
     width: number;
@@ -17,11 +18,11 @@ export class Table {
     static readonly possibleDeckOrder: string[] = ['order', 'shuffle'];
     static readonly possibleDeckVisibility: string[] = ['visible', 'hidden'];
 
-    static readonly fullDeck: string[][] = ((): string[][] => {
-        let product: string[][] = [];
+    static readonly fullDeck: Card[] = ((): Card[] => {
+        let product: Card[] = [];
         _.each(['c', 'd', 's', 'h'], (suit: string): void => {
             _.times(13, (num: number): void => {
-                product.push([suit, '' + (num + 1)]);
+                product.push(new Card(suit, num + 1));
             });
         });
         return product;

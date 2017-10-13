@@ -1,8 +1,9 @@
 import {Component, ElementRef, ViewChild} from "@angular/core";
 import * as _ from "underscore";
+import {Pos} from "../class/selector/pos";
+import {Card} from "../class/table/card";
 import {Deck} from "../class/table/deck";
 import {Rect} from "../class/table/rect";
-import {Pos} from "../class/selector/pos";
 import {Table} from "../class/table/table";
 import {TableCreatorService} from "../layer/tableCreatorService";
 
@@ -124,7 +125,7 @@ export class MyDirective {
         if (!deck.cards.length)
             this.drawCard(this.getCardRect(deck, 0), '', deck.getString());
 
-        _.each(deck.cards, (card: string[], cardIndex: number): void => {
+        _.each(deck.cards, (card: Card, cardIndex: number): void => {
             let cardRect: Rect = this.getCardRect(deck, cardIndex);
             let centerText: string = deck.getCardString(card);
             let cornerText: string = deck.cards.length <= 1 ? '' : (deck.horiz !== 0 || deck.vert !== 0 ? centerText : deck.cards.length + '' );

@@ -2,6 +2,7 @@ import * as _ from "underscore";
 import {Pos} from "../selector/pos";
 import {Selector} from "../selector/selector";
 import {SelectorCreator} from "../selector/selectorCreator";
+import {Card} from "../table/card";
 import {Table} from "../table/table";
 import {Condition} from "./condition";
 
@@ -18,9 +19,9 @@ export class SuitSame extends Condition {
     verify(table: Table): boolean {
         let pos1: Pos = this.compare1.select(table)[0];
         let pos2: Pos = this.compare2.select(table)[0];
-        let card1: string[] = table.findDeck(pos1.x, pos1.y).getCard(pos1.order);
-        let card2: string[] = table.findDeck(pos2.x, pos2.y).getCard(pos2.order);
+        let card1: Card = table.findDeck(pos1.x, pos1.y).getCard(pos1.order);
+        let card2: Card = table.findDeck(pos2.x, pos2.y).getCard(pos2.order);
 
-        return card1[0] === card2[0];
+        return card1.suit === card2.suit;
     }
 }
