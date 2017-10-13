@@ -23,13 +23,13 @@ export class TableCreatorService {
             deck 0 0 full shuffle visible // deck
             deck 0 2 empty order visible // draw
             
-            let 4 x (2 3 4 5)
+            let 4 x (2 3 4 5) // pillars
             init
-            deck x 0 empty order visible // pillars
+            deck x 0 empty order visible
             
-            let 6 x (2 3 4 5 6 7) n (1 2 3 4 5 6)
+            let 6 x (2 3 4 5 6 7) n (1 2 3 4 5 6) // main
             init
-            deck x 2 empty order visible vert -1 // main
+            deck x 2 empty order visible vert -1
             move (stack 0 0 n) (x 2 top)
 
             interact // draw
@@ -81,7 +81,12 @@ export class TableCreatorService {
             setselect -1
             setstate 0
             
-            
+            let 6 x (2 3 4 5 6 7) // select main
+            interact
+            state 0
+            click x 2
+            setselect (x 2 top)
+            setstate 1
             `;
     }
 

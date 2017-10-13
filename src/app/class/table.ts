@@ -20,7 +20,7 @@ export class Table {
     static readonly fullDeck: string[][] = ((): string[][] => {
         let product: string[][] = [];
         _.each(['c', 'd', 's', 'h'], (suit: string): void => {
-            _.each(_.range(13), (num: number): void => {
+            _.times(13, (num: number): void => {
                 product.push([suit, '' + (num + 1)]);
             });
         });

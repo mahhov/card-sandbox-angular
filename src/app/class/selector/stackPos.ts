@@ -23,8 +23,8 @@ export class StackPos extends Selector {
         if (!this.all && this.count < count)
             count = this.count;
 
-        return _.map(_.range(count), (): Pos => {
-            return new Pos(this.x, this.y, 'top')
+        return _.times(count, (): Pos => {
+            return new Pos(this.x, this.y, 'top');
         });
     }
 }
