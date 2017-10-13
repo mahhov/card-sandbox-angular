@@ -74,7 +74,7 @@ export class TableCreatorService {
             state 1
             click 2 0
             if numericdif (selected) (2 0 top) 1
-            if equalsuit (selected) (2 0 top)
+            if suitsame (selected) (2 0 top)
             move (selected) (2 0 top)
             setselect -1
             setstate 0

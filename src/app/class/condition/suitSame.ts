@@ -5,7 +5,7 @@ import {SelectorCreator} from "../selector/selectorCreator";
 import {Table} from "../table";
 import {Condition} from "./condition";
 
-export class EqualSuit extends Condition {
+export class SuitSame extends Condition {
     compare1: Selector;
     compare2: Selector;
 
