@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import * as _ from "underscore";
+import {Dictionary} from "underscore";
 import {ActionCreator} from "../class/action/actionCreator";
 import {Deck} from "../class/deck";
 import {Interact} from "../class/interact";
@@ -9,19 +10,24 @@ import {Table} from "../class/table";
 @Injectable()
 export class TableCreatorService {
     public getTable(): Table {
-        return TableCreatorService.createTable(TableCreatorService.createProgram(TableCreatorService.getInput()));
+        return TableCreatorService.createTable(
+            TableCreatorService.createProgram(
+                TableCreatorService.preprocessInput(
+                    TableCreatorService.getInput())));
     }
 
-    private static getInput(): string[] {
-        let input: string =
-            `init
+    private static getInput(): string {
+        return `
+            init
             table 10 8
             deck 0 0 full shuffle visible // deck
             deck 0 2 empty order visible // draw
-            deck 2 0 empty order visible // pillars
-            deck 3 0 empty order visible
-            deck 4 0 empty order visible
-            deck 5 0 empty order visible
+            
+            let 4 x (2 3 4 5)
+            init
+            deck x 0 empty order visible // pillars
+            
+            init
             deck 2 2 empty order visible vert -1 // main
             deck 3 2 empty order visible vert -1
             deck 4 2 empty order visible vert -1
@@ -81,25 +87,66 @@ export class TableCreatorService {
             setselect -1
             setstate 0
             `;
-
-        let lines = input.split('\n');
-        return _.map(lines, (line: string): string => line.replace(/(\(|\)|\/\/.*)/g, '').trim().toLocaleLowerCase());
     }
 
-    private static createProgram(lines: string[]): Program {
-        let category: string = null;
+    private static preprocessInput(input: string): string[][] {
+        let lines = input.split('\n');
+        lines = _.map(lines, (line: string): string => line.replace(/(\(|\)|\/\/.*)/g, '').trim().toLocaleLowerCase());
 
+        let blocks: string[][] = [[]];
+        let expandedBlocks: string[][] = [];
+
+        _.each(lines, (line: string) => {
+            if (!line && _.last(blocks).length)
+                blocks.push([]);
+            else if (line)
+                _.last(blocks).push(line);
+        });
+
+        _.each(blocks, (block: string[]) => {
+            if (!block.length)
+                return;
+            let firstLineWords: string[] = block[0].split(' ');
+            if (firstLineWords[0] === 'let') {
+                let letN = parseInt(firstLineWords[1]);
+                let letVarCount = (firstLineWords.length - 2) / (letN + 1);
+                let letMap: Dictionary<string[]> = {};
+                _.times(letVarCount, (i: number): void => {
+                    let shift: number = (letN + 1) * i;
+                    letMap[firstLineWords[2 + shift]] = firstLineWords.slice(3 + shift, 3 + shift + letN);
+                });
+
+                _.times(letN, (i: number): void => {
+                    let expandedBlock: string[] = [];
+                    _.each(_.rest(block), (line: string): void => {
+                        _.each(letMap, (letTo: string[], letFrom: string): void => {
+                            let replaceFrom: RegExp = new RegExp('\\b' + letFrom + '\\b', 'g');
+                            expandedBlock.push(line.replace(replaceFrom, letTo[i]));
+                        });
+                    });
+                    expandedBlocks.push(expandedBlock);
+                });
+
+            } else
+                expandedBlocks.push(block);
+        });
+
+        return expandedBlocks;
+    }
+
+    private static createProgram(blocks: string[][]): Program {
         let program: Program = new Program();
 
-        _.each(lines, (line: string): void => {
-            if (!category || !line) {
-                category = line;
-                if (category === 'interact')
-                    program.newInteract();
-            } else if (category === 'init')
-                program.addInit(line);
-            else if (category === 'interact')
-                program.addInteract(line);
+        _.each(blocks, (block: string[]): void => {
+            let category: string = block[0];
+            if (category === 'interact')
+                program.newInteract();
+            _.each(_.rest(block), (line: string): void => {
+                if (category === 'init')
+                    program.addInit(line);
+                else if (category === 'interact')
+                    program.addInteract(line);
+            });
         });
 
         return program;
