@@ -70,8 +70,8 @@ export class TableCreatorService {
             setselect -1
             setstate 0
             
-            let 4 x (2 3 4 5) suit (h s d c)
-            interact // add to pillar
+            let 4 x (2 3 4 5) suit (h s d c) // add to pillar
+            interact
             state 1
             click x 0
             if numericdif (selected) (x 0 top) 1
@@ -80,8 +80,8 @@ export class TableCreatorService {
             setselect -1
             setstate 0
              
-            let 4 x (2 3 4 5) suit (h s d c)
-            interact // move base to pillar
+            let 4 x (2 3 4 5) suit (h s d c) // move base to pillar
+            interact
             state 1
             click x 0
             if numericequal (selected) 1
@@ -122,10 +122,12 @@ export class TableCreatorService {
                 _.times(letN, (i: number): void => {
                     let expandedBlock: string[] = [];
                     _.each(_.rest(block), (line: string): void => {
+                        let expandedLine: string = line;
                         _.each(letMap, (letTo: string[], letFrom: string): void => {
                             let replaceFrom: RegExp = new RegExp('\\b' + letFrom + '\\b', 'g');
-                            expandedBlock.push(line.replace(replaceFrom, letTo[i]));
+                            expandedLine = expandedLine.replace(replaceFrom, letTo[i]);
                         });
+                        expandedBlock.push(expandedLine);
                     });
                     expandedBlocks.push(expandedBlock);
                 });
