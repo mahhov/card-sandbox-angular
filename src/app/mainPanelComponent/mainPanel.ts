@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewChild} from "@angular/core";
 import * as _ from "underscore";
 import {Deck} from "../class/deck";
+import {Rect} from "../class/rect";
 import {Pos} from "../class/selector/pos";
 import {Table} from "../class/table";
 import {TableCreatorService} from "../layer/tableCreatorService";
@@ -33,12 +34,12 @@ export class MyDirective {
         this.table = tableService.getTable();
     }
 
-    ngAfterViewInit() {
+    private ngAfterViewInit() {
         this.ctx = this.myCanvas.nativeElement.getContext('2d');
-        this.drawTable(this.table);
+        this.drawTable();
     }
 
-    setMetric(tableWidth: number, tableHeight: number): void {
+    private setMetric(tableWidth: number, tableHeight: number): void {
         this.tableWidth = tableWidth;
         this.tableHeight = tableHeight;
         this.cardSectionWidth = (1 - this.tableMargin) / tableWidth;
@@ -50,12 +51,121 @@ export class MyDirective {
         this.cornerMargin = 5;
     }
 
-    drawCanvasClear(): void {
+    // --- handle input ---
+
+    private click(x: number, y: number): void {
+        let coord: Pos = this.tableCoordinate(x, y);
+
+        if (coord)
+            this.table.handleClick(coord);
+
+        this.drawTable();
+    }
+
+    private mouse(x: number, y: number): void {
+        let coord: Pos = this.tableCoordinate(x, y);
+
+        if (coord)
+            this.table.handleMouse(coord);
+
+        this.drawTable();
+    }
+
+    private tableCoordinate(canvasX: number, canvasY: number): Pos {
+        let x: number = -1;
+        let y: number = -1;
+        let order: string = '';
+
+        _.each(this.table.decks, (deck: Deck): void => {
+            if (!deck.cards.length && this.getCardRect(deck, 0).contains(canvasX, canvasY)) {
+                x = deck.x;
+                y = deck.y;
+                order = 'top';
+            }
+        });
+
+        _.each(this.table.decks, (deck: Deck): void => {
+            _.times(deck.cards.length, (cardIndex: number): void => {
+                if (this.getCardRect(deck, cardIndex).contains(canvasX, canvasY)) {
+                    x = deck.x;
+                    y = deck.y;
+                    order = cardIndex + '';
+                }
+            });
+        });
+
+        return new Pos(x, y, order);
+    }
+
+    // --- table drawing
+
+    private drawTable(): void {
+        this.drawCanvasClear();
+        this.setMetric(this.table.width, this.table.height);
+        _.each(this.table.highlights, (highlight: Pos): void => {
+            this.drawHighlight(highlight);
+        });
+        if (this.table.select)
+            this.drawSelect(this.table.select);
+        _.each(this.table.decks, (deck: Deck): void => {
+            this.drawDeck(deck);
+        });
+    }
+
+    private drawHighlight(highlight: Pos): void {
+        // this.drawCard(highlight.x, highlight.y, '#ffb', '#000', '', '');
+    }
+
+    private drawSelect(highlight: Pos): void {
+        // this.drawCard(highlight.x, highlight.y, '#bbf', '#000', '', '');
+    }
+
+    private drawDeck(deck: Deck): void {
+        if (!deck.cards.length)
+            this.drawCard(this.getCardRect(deck, 0), '', deck.getString());
+
+        _.each(deck.cards, (card: string[], cardIndex: number): void => {
+            let cardRect: Rect = this.getCardRect(deck, cardIndex);
+            let centerText: string = deck.getCardString(card);
+            let cornerText: string = deck.cards.length <= 1 ? '' : (deck.horiz !== 0 || deck.vert !== 0 ? centerText : deck.cards.length + '' );
+            this.drawCard(cardRect, cornerText, deck.getCardString(card));
+        });
+    }
+
+    private drawCard(cardRect: Rect, cornerText: string, centerText: string) {
+        this.drawCanvasRect(cardRect.left, cardRect.top, cardRect.width, cardRect.height, '#fff', true);
+        this.drawCanvasRect(cardRect.left, cardRect.top, cardRect.width, cardRect.height, '#000', false);
+        this.drawCanvasText(cornerText, cardRect.left + this.cornerMargin, cardRect.top + this.fontHeight + this.cornerMargin);
+        this.drawCanvasText(centerText, cardRect.left + cardRect.width / 2 - this.fontWidth * centerText.length, cardRect.top + cardRect.height / 2 + this.fontHeight / 2);
+    }
+
+    // --- util ---
+
+    private getCardRect(deck: Deck, cardIndex: number): Rect {
+        let x: number = deck.x;
+        let y: number = deck.y;
+
+        if (deck.cards.length > 1 && deck.horiz !== 0)
+            x += deck.horiz > 0 ? deck.horiz * cardIndex / (deck.cards.length - 1) : this.spreadShift * cardIndex;
+        else if (deck.cards.length > 1 && deck.vert !== 0)
+            y += deck.vert > 0 ? deck.vert * cardIndex / (deck.cards.length - 1) : this.spreadShift * cardIndex;
+
+        let left: number = (x * this.cardSectionWidth + this.tableMargin) * this.canvasWidth;
+        let top: number = (y * this.cardSectionHeight + this.tableMargin) * this.canvasHeight;
+        let width: number = this.cardWidth * this.canvasWidth;
+        let height: number = this.cardHeight * this.canvasHeight;
+
+        return new Rect(left, top, width, height);
+    }
+
+    // --- canvas drawing ---
+
+    private drawCanvasClear(): void {
         this.ctx.fillStyle = 'white';
         this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
     }
 
-    drawCanvasRect(left: number, top: number, width: number, height: number, color: string, fill: boolean): void {
+    private drawCanvasRect(left: number, top: number, width: number, height: number, color: string, fill: boolean): void {
         this.ctx.fillStyle = color;
         if (fill)
             this.ctx.fillRect(left, top, width, height);
@@ -63,108 +173,8 @@ export class MyDirective {
             this.ctx.strokeRect(left, top, width, height);
     }
 
-    drawCanvasText(text: string, left: number, bottom: number): void {
+    private drawCanvasText(text: string, left: number, bottom: number): void {
         this.ctx.strokeText(text, left, bottom);
-    }
-
-    drawRect(x: number, y: number, color: string, borderColor: string, cornerText: string, centerText: string) {
-        let left: number = (x * this.cardSectionWidth + this.tableMargin) * this.canvasWidth;
-        let top: number = (y * this.cardSectionHeight + this.tableMargin) * this.canvasHeight;
-        let width: number = this.cardWidth * this.canvasWidth;
-        let height: number = this.cardHeight * this.canvasHeight;
-        if (color)
-            this.drawCanvasRect(left, top, width, height, color, true);
-        this.drawCanvasRect(left, top, width, height, borderColor, false);
-        this.drawCanvasText(cornerText, left + this.cornerMargin, top + this.fontHeight + this.cornerMargin);
-        this.drawCanvasText(centerText, left + width / 2 - this.fontWidth * centerText.length, top + height / 2 + this.fontHeight / 2);
-    }
-
-    drawHighlight(highlight: Pos): void {
-        this.drawRect(highlight.x, highlight.y, '#ffb', '#000', '', '');
-    }
-
-    drawSelect(highlight: Pos): void {
-        this.drawRect(highlight.x, highlight.y, '#bbf', '#000', '', '');
-    }
-
-    drawDeck(deck: Deck): void {
-        if (deck.cards.length > 1 && deck.horiz !== 0) {
-            _.each(deck.cards, (card: string[], index: number): void => {
-                let text: string = deck.getCardString(card);
-                let shift: number = deck.horiz > 0 ? deck.horiz * index / (deck.cards.length - 1) : this.spreadShift * index;
-                this.drawRect(deck.x + shift, deck.y, '#fff', '#000', text, text);
-            });
-        } else if (deck.cards.length > 1 && deck.vert !== 0) {
-            _.each(deck.cards, (card: string[], index: number): void => {
-                let text: string = deck.getCardString(card);
-                let shift: number = deck.vert > 0 ? deck.vert * index / (deck.cards.length - 1) : this.spreadShift * index;
-                this.drawRect(deck.x, deck.y + shift, '#fff', '#000', text, text);
-            });
-        } else if (deck.cards.length > 1)
-            this.drawRect(deck.x, deck.y, null, '#fff', deck.cards.length + '', deck.getString());
-        else
-            this.drawRect(deck.x, deck.y, null, '#fff', '', deck.getString());
-    }
-
-    drawTable(table: Table): void {
-        this.drawCanvasClear();
-        this.setMetric(table.width, table.height);
-        _.each(table.highlights, (highlight: Pos): void => {
-            this.drawHighlight(highlight);
-        });
-        if (table.select)
-            this.drawSelect(table.select);
-        _.each(table.decks, (deck: Deck): void => {
-            this.drawDeck(deck);
-        });
-    }
-
-    click(x: number, y: number): void {
-        let coord: Pos = this.coordinate(x, y);
-
-        if (coord)
-            this.table.handleClick(coord);
-
-        this.drawTable(this.table);
-    }
-
-    mouse(x: number, y: number): void {
-        let coord: Pos = this.coordinate(x, y);
-
-        if (coord)
-            this.table.handleMouse(coord);
-
-        this.drawTable(this.table);
-    }
-
-    private coordinate(canvasX: number, canvasY: number): Pos {
-        let ratioX: number = canvasX / this.canvasWidth;
-        let ratioY: number = canvasY / this.canvasHeight;
-        let actualX: number = -1;
-        let actualY: number = -1;
-        let tryX: number = 0;
-        let tryY: number = 0;
-
-        while (true) {
-            if ((ratioX -= this.tableMargin) < 0)
-                break;
-            if ((ratioX -= this.cardWidth) < 0)
-                actualX = tryX;
-            tryX++;
-        }
-
-        while (true) {
-            if ((ratioY -= this.tableMargin) < 0)
-                break;
-            if ((ratioY -= this.cardHeight) < 0)
-                actualY = tryY;
-            tryY++;
-        }
-
-        if (actualX != -1 && actualY != -1)
-            return new Pos(actualX, actualY);
-
-        return null;
     }
 }
 

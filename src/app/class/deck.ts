@@ -1,4 +1,5 @@
 import * as _ from "underscore";
+import {Rect} from "./rect";
 import {Table} from "./table";
 
 export class Deck {
