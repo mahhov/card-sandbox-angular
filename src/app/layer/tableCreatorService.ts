@@ -70,20 +70,23 @@ export class TableCreatorService {
             setselect -1
             setstate 0
             
-            interact // add to pillar 1
+            let 4 x (2 3 4 5) suit (h s d c)
+            interact // add to pillar
             state 1
-            click 2 0
-            if numericdif (selected) (2 0 top) 1
-            if suitsame (selected) (2 0 top)
-            move (selected) (2 0 top)
+            click x 0
+            if numericdif (selected) (x 0 top) 1
+            if suitequal (selected) suit
+            move (selected) (x 0 top)
             setselect -1
             setstate 0
              
-            interact // move base to pillar 1
+            let 4 x (2 3 4 5) suit (h s d c)
+            interact // move base to pillar
             state 1
-            click 2 0
-            if numeric (selected) 1
-            move (selected) (2 0 top)
+            click x 0
+            if numericequal (selected) 1
+            if suitequal (selected) suit
+            move (selected) (x 0 top)
             setselect -1
             setstate 0
             `;

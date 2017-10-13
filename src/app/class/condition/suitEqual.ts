@@ -5,20 +5,20 @@ import {SelectorCreator} from "../selector/selectorCreator";
 import {Table} from "../table";
 import {Condition} from "./condition";
 
-export class Numeric extends Condition {
+export class SuitEqual extends Condition {
     selector: Selector;
-    value: number;
+    value: string;
 
     constructor(words: string[]) {
         super();
         this.selector = SelectorCreator.create(_.rest(words));
-        this.value = parseInt(words[this.selector.consumed + 1]);
+        this.value = words[this.selector.consumed + 1];
     }
 
     verify(table: Table): boolean {
         let pos: Pos = this.selector.select(table)[0];
         let card: string[] = table.findDeck(pos.x, pos.y).getCard(pos.order);
 
-        return card[1] === this.value + '';
+        return card[0] === this.value;
     }
 }
