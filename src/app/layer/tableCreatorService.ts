@@ -27,19 +27,10 @@ export class TableCreatorService {
             init
             deck x 0 empty order visible // pillars
             
+            let 6 x (2 3 4 5 6 7) n (1 2 3 4 5 6)
             init
-            deck 2 2 empty order visible vert -1 // main
-            deck 3 2 empty order visible vert -1
-            deck 4 2 empty order visible vert -1
-            deck 5 2 empty order visible vert -1
-            deck 6 2 empty order visible vert -1
-            deck 7 2 empty order visible vert -1
-            move (0 0 top) (2 2 top)
-            move (stack 0 0 2) (3 2 top)
-            move (stack 0 0 3) (4 2 top)
-            move (stack 0 0 4) (5 2 top)
-            move (stack 0 0 5) (6 2 top)
-            move (stack 0 0 6) (7 2 top)
+            deck x 2 empty order visible vert -1 // main
+            move (stack 0 0 n) (x 2 top)
 
             interact // draw
             state 0 1
@@ -89,6 +80,8 @@ export class TableCreatorService {
             move (selected) (x 0 top)
             setselect -1
             setstate 0
+            
+            
             `;
     }
 
