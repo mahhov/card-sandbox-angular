@@ -1,4 +1,4 @@
-import {Table} from "../table";
+import {Table} from "../table/table";
 import {Action} from "./action";
 
 export class SetState extends Action {

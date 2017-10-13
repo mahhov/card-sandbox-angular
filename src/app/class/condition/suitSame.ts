@@ -2,7 +2,7 @@ import * as _ from "underscore";
 import {Pos} from "../selector/pos";
 import {Selector} from "../selector/selector";
 import {SelectorCreator} from "../selector/selectorCreator";
-import {Table} from "../table";
+import {Table} from "../table/table";
 import {Condition} from "./condition";
 
 export class SuitSame extends Condition {

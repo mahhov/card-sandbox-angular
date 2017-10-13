@@ -1,4 +1,4 @@
-import {Table} from "../table";
+import {Table} from "../table/table";
 import {Pos} from "./pos";
 import {Selector} from "./selector";
 

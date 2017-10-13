@@ -1,9 +1,9 @@
 import {Component, ElementRef, ViewChild} from "@angular/core";
 import * as _ from "underscore";
-import {Deck} from "../class/deck";
-import {Rect} from "../class/rect";
+import {Deck} from "../class/table/deck";
+import {Rect} from "../class/table/rect";
 import {Pos} from "../class/selector/pos";
-import {Table} from "../class/table";
+import {Table} from "../class/table/table";
 import {TableCreatorService} from "../layer/tableCreatorService";
 
 @Component({

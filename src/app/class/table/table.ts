@@ -1,8 +1,8 @@
 import * as _ from "underscore";
-import {Condition} from "./condition/condition";
+import {Condition} from "../condition/condition";
 import {Deck} from "./deck";
-import {Interact} from "./interact";
-import {Pos} from "./selector/pos";
+import {Interact} from "../interact";
+import {Pos} from "../selector/pos";
 
 export class Table {
     width: number;

@@ -2,10 +2,10 @@ import {Injectable} from "@angular/core";
 import * as _ from "underscore";
 import {Dictionary} from "underscore";
 import {ActionCreator} from "../class/action/actionCreator";
-import {Deck} from "../class/deck";
+import {Deck} from "../class/table/deck";
 import {Interact} from "../class/interact";
 import {Program} from "../class/program";
-import {Table} from "../class/table";
+import {Table} from "../class/table/table";
 
 @Injectable()
 export class TableCreatorService {

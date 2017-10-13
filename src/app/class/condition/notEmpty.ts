@@ -1,9 +1,9 @@
 import * as _ from "underscore";
-import {Deck} from "../deck";
+import {Deck} from "../table/deck";
 import {Pos} from "../selector/pos";
 import {Selector} from "../selector/selector";
 import {SelectorCreator} from "../selector/selectorCreator";
-import {Table} from "../table";
+import {Table} from "../table/table";
 import {Condition} from "./condition";
 
 export class NotEmpty extends Condition {
