@@ -71,6 +71,10 @@ export class Deck {
             return _.last(this.cards);
         else if (order === 'bottom')
             return _.first(this.cards);
+        else {
+            let index: number = parseInt(order);
+            return index >= this.cards.length ? _.last(this.cards) : this.cards[index];
+        }
     }
 
     removeCard(order: string): Card {

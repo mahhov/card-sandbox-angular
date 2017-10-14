@@ -10,9 +10,10 @@ export class Table {
     height: number;
     decks: Deck[] = [];
     interacts: Interact[] = [];
-    highlights: Pos[] = [];
-    select: Pos;
     state: number = 0;
+    highlightsCount: number = 1;
+    selectCount: number = 1;
+    select: Pos;
 
     static readonly possibleDeckContain: string[] = ['empty', 'full'];
     static readonly possibleDeckOrder: string[] = ['order', 'shuffle'];
@@ -41,23 +42,39 @@ export class Table {
         this.interacts.push(interact);
     }
 
+    unselect(): void {
+        ++this.selectCount;
+        this.select === null;
+    }
+
+    setSelect(coord: Pos): void {
+        let deck: Deck = this.findDeck(coord.x, coord.y);
+        deck && deck.getCard(coord.order).select(++this.selectCount);
+        this.select = coord;
+    }
+
     handleClick(coord: Pos): void {
-        let interact: Interact = _.find(this.interacts, (interact): boolean => {
+        let interact: Interact = this.findInteract(coord);
+        if (interact)
+            _.invoke(interact.actions, 'act', this);
+        this.handleMouse(coord);
+    }
+
+    handleMouse(coord: Pos): void {
+        this.highlightsCount++;
+        if (this.findInteract(coord)) {
+            let card: Card = this.findDeck(coord.x, coord.y).getCard(coord.order);
+            card && card.highlight(this.highlightsCount);
+        }
+    }
+
+    findInteract(coord: Pos): Interact {
+        return _.find(this.interacts, (interact): boolean => {
             if (interact.whenX === coord.x && interact.whenY === coord.y && _.contains(interact.whenStates, this.state))
                 return _.every(interact.conditions, (condition: Condition): boolean => {
                     return condition.verify(this);
                 });
         });
-        if (interact)
-            _.invoke(interact.actions, 'act', this);
-    }
-
-    handleMouse(coord: Pos): void {
-        this.highlights = [];
-        _.each(this.interacts, (interact): void => {
-            if (interact.whenX === coord.x && interact.whenY === coord.y)
-                this.highlights.push(coord);
-        })
     }
 
     findDeck(x: number, y: number): Deck {

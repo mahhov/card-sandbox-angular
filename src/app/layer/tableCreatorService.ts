@@ -37,7 +37,7 @@ export class TableCreatorService {
             click 0 0
             if notempty 0 0
             move (0 0 top) (0 2 top)
-            setselect -1
+            unselect
             setstate 0
             
             interact // reshuffle
@@ -45,7 +45,7 @@ export class TableCreatorService {
             click 0 0
             if empty 0 0
             move (stack 0 2 all) (0 0 top)
-            setselect -1
+            unselect
             setstate 0
 
             interact // select draw
@@ -58,7 +58,7 @@ export class TableCreatorService {
             interact // unselect draw
             state 1
             click 0 2
-            setselect -1
+            unselect
             setstate 0
             
             let 4 x (2 3 4 5) suit (h s d c) // add to pillar
@@ -68,7 +68,7 @@ export class TableCreatorService {
             if numericdif (selected) (x 0 top) 1
             if suitequal (selected) suit
             move (selected) (x 0 top)
-            setselect -1
+            unselect
             setstate 0
              
             let 4 x (2 3 4 5) suit (h s d c) // move base to pillar
@@ -78,7 +78,7 @@ export class TableCreatorService {
             if numericequal (selected) 1
             if suitequal (selected) suit
             move (selected) (x 0 top)
-            setselect -1
+            unselect
             setstate 0
             
             let 6 x (2 3 4 5 6 7) // select main

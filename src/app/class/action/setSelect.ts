@@ -13,6 +13,6 @@ export class SetSelect extends Action {
     }
 
     act(table: Table): void {
-        table.select = this.toSelect.select(table)[0];
+        table.setSelect(this.toSelect.select(table)[0]);
     }
 }

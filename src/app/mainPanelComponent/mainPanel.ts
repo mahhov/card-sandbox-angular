@@ -103,22 +103,9 @@ export class MyDirective {
     private drawTable(): void {
         this.drawCanvasClear();
         this.setMetric(this.table.width, this.table.height);
-        _.each(this.table.highlights, (highlight: Pos): void => {
-            this.drawHighlight(highlight);
-        });
-        if (this.table.select)
-            this.drawSelect(this.table.select);
         _.each(this.table.decks, (deck: Deck): void => {
             this.drawDeck(deck);
         });
-    }
-
-    private drawHighlight(highlight: Pos): void {
-        // this.drawCard(highlight.x, highlight.y, '#ffb', '#000', '', '');
-    }
-
-    private drawSelect(highlight: Pos): void {
-        // this.drawCard(highlight.x, highlight.y, '#bbf', '#000', '', '');
     }
 
     private drawDeck(deck: Deck): void {
@@ -134,7 +121,7 @@ export class MyDirective {
     }
 
     private drawCard(cardRect: Rect, cornerText: string, centerText: string) {
-        this.drawCanvasRect(cardRect.left, cardRect.top, cardRect.width, cardRect.height, '#fff', true);
+        this.drawCanvasRect(cardRect.left, cardRect.top, cardRect.width, cardRect.height, cardRect.color, true);
         this.drawCanvasRect(cardRect.left, cardRect.top, cardRect.width, cardRect.height, '#000', false);
         this.drawCanvasText(cornerText, cardRect.left + this.cornerMargin, cardRect.top + this.fontHeight + this.cornerMargin);
         this.drawCanvasText(centerText, cardRect.left + cardRect.width / 2 - this.fontWidth * centerText.length, cardRect.top + cardRect.height / 2 + this.fontHeight / 2);
@@ -156,7 +143,9 @@ export class MyDirective {
         let width: number = this.cardWidth * this.canvasWidth;
         let height: number = this.cardHeight * this.canvasHeight;
 
-        return new Rect(left, top, width, height);
+        let color: string = deck.cards[cardIndex] ? deck.cards[cardIndex].getColor(this.table) : '#fff';
+
+        return new Rect(left, top, width, height, color);
     }
 
     // --- canvas drawing ---
