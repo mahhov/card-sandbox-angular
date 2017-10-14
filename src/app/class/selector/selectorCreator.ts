@@ -1,3 +1,4 @@
+import {HighlightedSelector} from "./highlightedSelector";
 import {SelectedSelector} from "./selectedSelector";
 import {Selector} from "./selector";
 import {StackSelector} from "./stackSelector";
@@ -5,10 +6,15 @@ import {StaticSelector} from "./staticSelector";
 
 export class SelectorCreator {
     static create(words: string[]): Selector {
-        if (words[0] === 'stack')
-            return new StackSelector(words);
-        else if (words[0] === 'selected')
-            return new SelectedSelector(words);
-        return new StaticSelector(words);
+        switch (words[0]) {
+            case 'stack':
+                return new StackSelector(words);
+            case 'selected':
+                return new SelectedSelector(words);
+            case 'highlighted':
+                return new HighlightedSelector(words);
+            default:
+                return new StaticSelector(words);
+        }
     }
 }

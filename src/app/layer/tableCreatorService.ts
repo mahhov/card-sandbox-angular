@@ -85,7 +85,7 @@ export class TableCreatorService {
             interact
             state 0
             click x 2
-            setselect (x 2 top)
+            setselect (highlighted) //setselect (x 2 top)
             setstate 1
             `;
     }

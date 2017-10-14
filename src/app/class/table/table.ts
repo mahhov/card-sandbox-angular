@@ -13,6 +13,7 @@ export class Table {
     state: number = 0;
     highlightsCount: number = 1;
     selectCount: number = 1;
+    highlight: Pos;
     select: Pos;
 
     static readonly possibleDeckContain: string[] = ['empty', 'full'];
@@ -44,7 +45,7 @@ export class Table {
 
     unselect(): void {
         ++this.selectCount;
-        this.select === null;
+        this.select = null;
     }
 
     setSelect(coord: Pos): void {
@@ -65,6 +66,7 @@ export class Table {
         if (this.findInteract(coord)) {
             let card: Card = this.findDeck(coord.x, coord.y).getCard(coord.order);
             card && card.highlight(this.highlightsCount);
+            this.highlight = coord;
         }
     }
 

@@ -6,14 +6,17 @@ import {Unselect} from "./unselect";
 
 export class ActionCreator {
     static create(words: string[]): Action {
-        if (words[0] === 'move')
-            return new Move(words);
-        else if (words[0] === 'setstate')
-            return new SetState(words);
-        else if (words[0] === 'setselect')
-            return new SetSelect(words);
-        else if (words[0] === 'unselect')
-            return new Unselect(words);
-        return null;
+        switch (words[0]) {
+            case 'move':
+                return new Move(words);
+            case 'setstate':
+                return new SetState(words);
+            case 'setselect':
+                return new SetSelect(words);
+            case 'unselect':
+                return new Unselect(words);
+            default:
+                return null;
+        }
     }
 }
