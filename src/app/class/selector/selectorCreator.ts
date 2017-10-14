@@ -1,14 +1,14 @@
-import {SelectedPos} from "./selectedPos";
+import {SelectedSelector} from "./selectedSelector";
 import {Selector} from "./selector";
-import {StackPos} from "./stackPos";
-import {StaticPos} from "./staticPos";
+import {StackSelector} from "./stackSelector";
+import {StaticSelector} from "./staticSelector";
 
 export class SelectorCreator {
     static create(words: string[]): Selector {
         if (words[0] === 'stack')
-            return new StackPos(words);
+            return new StackSelector(words);
         else if (words[0] === 'selected')
-            return new SelectedPos(words);
-        return new StaticPos(words);
+            return new SelectedSelector(words);
+        return new StaticSelector(words);
     }
 }

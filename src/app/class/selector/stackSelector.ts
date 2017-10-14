@@ -3,7 +3,7 @@ import {Table} from "../table/table";
 import {Pos} from "./pos";
 import {Selector} from "./selector";
 
-export class StackPos extends Selector {
+export class StackSelector extends Selector {
     x: number;
     y: number;
     count: number;

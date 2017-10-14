@@ -2,7 +2,7 @@ import {Table} from "../table/table";
 import {Pos} from "./pos";
 import {Selector} from "./selector";
 
-export class StaticPos extends Selector {
+export class StaticSelector extends Selector {
     x: number;
     y: number;
     order: string;
