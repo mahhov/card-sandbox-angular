@@ -93,13 +93,13 @@ export class TableCreatorService {
             state 1
             click x 2
             if numericdif (selected) (x 2 top) -1
-            ifnot suitsame (selected) (x 2 top) // todo not same color suit
+            ifnot colorsame (selected) (x 2 top)
             move (selectedstack) (x 2 top)
             unselect
             setstate 0
             
             // todo moving king to empty main
-            // allow unselecting when clicking on main
+            // todo allow unselecting when clicking on main
             `;
     }
 

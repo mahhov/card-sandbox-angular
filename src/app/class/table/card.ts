@@ -1,4 +1,5 @@
 import {Table} from "./table";
+
 export class Card {
     suit: string;
     num: number;
