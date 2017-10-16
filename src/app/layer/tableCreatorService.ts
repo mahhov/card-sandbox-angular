@@ -2,9 +2,9 @@ import {Injectable} from "@angular/core";
 import * as _ from "underscore";
 import {Dictionary} from "underscore";
 import {ActionCreator} from "../class/action/actionCreator";
-import {Deck} from "../class/table/deck";
 import {Interact} from "../class/interact";
 import {Program} from "../class/program";
+import {Deck} from "../class/table/deck";
 import {Table} from "../class/table/table";
 
 @Injectable()
@@ -35,7 +35,7 @@ export class TableCreatorService {
             interact // draw
             state 0 1
             click 0 0
-            if notempty 0 0
+            ifnot empty 0 0
             move (0 0 top) (0 2 top)
             unselect
             setstate 0
@@ -51,7 +51,7 @@ export class TableCreatorService {
             interact // select draw
             state 0
             click 0 2
-            if notempty 0 2
+            ifnot empty 0 2
             setselect (0 2 top)
             setstate 1
 
@@ -65,7 +65,7 @@ export class TableCreatorService {
             interact
             state 1
             click x 0
-            if numericdif (selected) (x 0 top) 1
+            if numericdif (selected) (x 0 top) 1 // todo if istop (selected)
             if suitequal (selected) suit
             move (selected) (x 0 top)
             unselect
@@ -75,7 +75,7 @@ export class TableCreatorService {
             interact
             state 1
             click x 0
-            if numericequal (selected) 1
+            if numericequal (selected) 1 // todo if istop (selected)
             if suitequal (selected) suit
             move (selected) (x 0 top)
             unselect
@@ -85,8 +85,21 @@ export class TableCreatorService {
             interact
             state 0
             click x 2
-            setselect (highlighted) //setselect (x 2 top)
+            setselect (highlighted)
             setstate 1
+            
+            let 6 x (2 3 4 5 6 7) // move to main
+            interact
+            state 1
+            click x 2
+            if numericdif (selected) (x 2 top) -1
+            ifnot suitsame (selected) (x 2 top) // todo not same color suit
+            move (selectedstack) (x 2 top)
+            unselect
+            setstate 0
+            
+            // todo moving king to empty main
+            // allow unselecting when clicking on main
             `;
     }
 
@@ -179,7 +192,9 @@ export class TableCreatorService {
             _.each(interactBlock, (interactDoLine: string): void => {
                 let words: string[] = interactDoLine.split(' ');
                 if (words[0] === 'if')
-                    interact.addCondition(_.rest(words));
+                    interact.addCondition(_.rest(words), false);
+                else if (words[0] === 'ifnot')
+                    interact.addCondition(_.rest(words), true);
                 else
                     interact.addAction(words);
             });

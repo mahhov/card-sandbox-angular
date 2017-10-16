@@ -10,13 +10,13 @@ export class NumericEqual extends Condition {
     selector: Selector;
     value: number;
 
-    constructor(words: string[]) {
-        super();
+    constructor(words: string[], not: boolean) {
+        super(not);
         this.selector = SelectorCreator.create(_.rest(words));
         this.value = parseInt(words[this.selector.consumed + 1]);
     }
 
-    verify(table: Table): boolean {
+    verifyValue(table: Table): boolean {
         let pos: Pos = this.selector.select(table)[0];
         let card: Card = table.findDeck(pos.x, pos.y).getCard(pos.order);
 

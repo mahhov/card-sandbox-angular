@@ -10,13 +10,13 @@ export class SuitSame extends Condition {
     compare1: Selector;
     compare2: Selector;
 
-    constructor(words: string[]) {
-        super();
+    constructor(words: string[], not: boolean) {
+        super(not);
         this.compare1 = SelectorCreator.create(_.rest(words));
         this.compare2 = SelectorCreator.create(_.rest(words, this.compare1.consumed + 1));
     }
 
-    verify(table: Table): boolean {
+    verifyValue(table: Table): boolean {
         let pos1: Pos = this.compare1.select(table)[0];
         let pos2: Pos = this.compare2.select(table)[0];
         let card1: Card = table.findDeck(pos1.x, pos1.y).getCard(pos1.order);

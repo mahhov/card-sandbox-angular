@@ -19,8 +19,8 @@ export class Interact {
         this.whenY = y;
     }
 
-    addCondition(words: string[]): void {
-        let condition: Condition = ConditionCreator.create(words);
+    addCondition(words: string[], not: boolean): void {
+        let condition: Condition = ConditionCreator.create(words, not);
         if (condition)
             this.conditions.push(condition);
     }

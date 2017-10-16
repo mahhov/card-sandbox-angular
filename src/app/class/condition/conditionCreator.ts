@@ -1,26 +1,23 @@
 import {Condition} from "./condition";
 import {Empty} from "./empty";
-import {NotEmpty} from "./notEmpty";
 import {NumericDif} from "./numericDif";
 import {NumericEqual} from "./numericEqual";
 import {SuitEqual} from "./suitEqual";
 import {SuitSame} from "./suitSame";
 
 export class ConditionCreator {
-    static create(words: string[]): Condition {
+    static create(words: string[], not: boolean): Condition {
         switch (words[0]) {
-            case 'notempty':
-                return new NotEmpty(words);
             case 'empty':
-                return new Empty(words);
+                return new Empty(words, not);
             case 'suitsame':
-                return new SuitSame(words);
+                return new SuitSame(words, not);
             case 'numericequal':
-                return new NumericEqual(words);
+                return new NumericEqual(words, not);
             case 'numericdif':
-                return new NumericDif(words);
+                return new NumericDif(words, not);
             case 'suitequal':
-                return new SuitEqual(words);
+                return new SuitEqual(words, not);
             default:
                 return null;
         }

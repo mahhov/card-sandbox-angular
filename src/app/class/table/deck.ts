@@ -78,17 +78,24 @@ export class Deck {
     }
 
     removeCard(order: string): Card {
+        console.log('begin remove card; order: ', order, ' ; this.cards: ', this.cards);
         if (order === 'top')
             return this.cards.pop();
         else if (order === 'bottom')
             return this.cards.shift();
+        else {
+            let index: number = parseInt(order);
+            return index >= this.cards.length ? this.cards.pop() : this.cards.splice(index, 1)[0];
+        }
     }
 
-    addCard(card: Card, order: string) {
+    addCard(card: Card, order: string): void {
         if (order === 'top')
-            return this.cards.push(card);
+            this.cards.push(card);
         else if (order === 'bottom')
-            return this.cards.unshift(card);
+            this.cards.unshift(card);
+        else
+            this.cards.splice(parseInt(order), 0, card);
     }
 
     getString(): string {
