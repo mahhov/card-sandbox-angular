@@ -1,5 +1,6 @@
 import {HighlightedSelector} from "./highlightedSelector";
 import {SelectedSelector} from "./selectedSelector";
+import {SelectedStackRepeatSelector} from "./selectedStackRepeatSelector";
 import {SelectedStackSelector} from "./selectedStackSelector";
 import {Selector} from "./selector";
 import {StackSelector} from "./stackSelector";
@@ -16,6 +17,8 @@ export class SelectorCreator {
                 return new HighlightedSelector(words);
             case 'selectedstack':
                 return new SelectedStackSelector(words);
+            case 'selectedrepeatstack':
+                return new SelectedStackRepeatSelector(words);
             default:
                 return new StaticSelector(words);
         }

@@ -27,7 +27,11 @@ export class Card {
         return this.selectNumber === table.selectCount;
     }
 
-    getColor(table: Table): string {
+    getDrawColor(table: Table): string {
         return this.isSelected(table) ? '#bbf' : (this.isHighlighted(table) ? '#ffb' : '#fff');
+    }
+
+    isRed(): boolean {
+        return this.suit === 'h' || this.suit === 'd';
     }
 }

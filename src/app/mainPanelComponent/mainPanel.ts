@@ -143,7 +143,7 @@ export class MyDirective {
         let width: number = this.cardWidth * this.canvasWidth;
         let height: number = this.cardHeight * this.canvasHeight;
 
-        let color: string = deck.cards[cardIndex] ? deck.cards[cardIndex].getColor(this.table) : '#fff';
+        let color: string = deck.cards[cardIndex] ? deck.cards[cardIndex].getDrawColor(this.table) : '#fff';
 
         return new Rect(left, top, width, height, color);
     }

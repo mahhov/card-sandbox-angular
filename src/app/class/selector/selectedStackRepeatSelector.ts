@@ -4,7 +4,7 @@ import {Table} from "../table/table";
 import {Pos} from "./pos";
 import {Selector} from "./selector";
 
-export class SelectedStackSelector extends Selector {
+export class SelectedStackRepeatSelector extends Selector {
     constructor(words: string[]) {
         super(1);
     }
@@ -15,8 +15,8 @@ export class SelectedStackSelector extends Selector {
         let maxOrder: number = deck.cards.length;
 
         let selects: Pos[] = [];
-        _.times(maxOrder - minOrder, (shift: number): void => {
-            selects.push(new Pos(table.select.x, table.select.y, (minOrder + shift) + ''));
+        _.times(maxOrder - minOrder, (): void => {
+            selects.push(new Pos(table.select.x, table.select.y, minOrder + ''));
         });
 
         return selects;

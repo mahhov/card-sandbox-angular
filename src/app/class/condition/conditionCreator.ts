@@ -4,6 +4,7 @@ import {Empty} from "./empty";
 import {IsTop} from "./isTop";
 import {NumericDif} from "./numericDif";
 import {NumericEqual} from "./numericEqual";
+import {ProperSolitaireStack} from "./properSolitaireStack";
 import {SuitEqual} from "./suitEqual";
 import {SuitSame} from "./suitSame";
 
@@ -24,6 +25,8 @@ export class ConditionCreator {
                 return new ColorSame(words, not);
             case 'istop':
                 return new IsTop(words, not);
+            case 'propersolitairestack':
+                return new ProperSolitaireStack(words, not);
             default:
                 return null;
         }

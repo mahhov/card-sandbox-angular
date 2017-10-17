@@ -96,7 +96,8 @@ export class TableCreatorService {
             click x 2
             if numericdif (selected) (x 2 top) -1
             ifnot colorsame (selected) (x 2 top)
-            move (selectedstack) (x 2 top)
+            if propersolitairestack (selectedstack)
+            move (selectedrepeatstack) (x 2 top)
             unselect
             setstate 0
              
@@ -106,7 +107,8 @@ export class TableCreatorService {
             click x 2
             if empty x 2
             if numericequal (selected) 13
-            move (selectedstack) (x 2 top)
+            if propersolitairestack (selectedstack)
+            move (selectedrepeatstack) (x 2 top)
             unselect
             setstate 0
             

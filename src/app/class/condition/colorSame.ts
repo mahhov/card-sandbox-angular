@@ -22,7 +22,6 @@ export class ColorSame extends Condition {
         let card1: Card = table.findDeck(pos1.x, pos1.y).getCard(pos1.order);
         let card2: Card = table.findDeck(pos2.x, pos2.y).getCard(pos2.order);
 
-        return card1 && card2 && ((card1.suit === 'c' || card1.suit === 's' ) && (card2.suit === 'c' || card2.suit === 's' )
-            || (card1.suit === 'd' || card1.suit === 'h' ) && (card2.suit === 'd' || card2.suit === 'h' ));
+        return card1 && card2 && card1.isRed() === card2.isRed();
     }
 }
