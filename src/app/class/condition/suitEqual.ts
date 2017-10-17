@@ -20,6 +20,6 @@ export class SuitEqual extends Condition {
         let pos: Pos = this.selector.select(table)[0];
         let card: Card = table.findDeck(pos.x, pos.y).getCard(pos.order);
 
-        return card.suit === this.value;
+        return card && card.suit === this.value;
     }
 }

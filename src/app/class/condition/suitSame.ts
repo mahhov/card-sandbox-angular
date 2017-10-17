@@ -22,6 +22,6 @@ export class SuitSame extends Condition {
         let card1: Card = table.findDeck(pos1.x, pos1.y).getCard(pos1.order);
         let card2: Card = table.findDeck(pos2.x, pos2.y).getCard(pos2.order);
 
-        return card1.suit === card2.suit;
+        return card1 && card2 && card1.suit === card2.suit;
     }
 }

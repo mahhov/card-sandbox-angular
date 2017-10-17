@@ -65,7 +65,8 @@ export class TableCreatorService {
             interact
             state 1
             click x 0
-            if numericdif (selected) (x 0 top) 1 // todo if istop (selected)
+            if istop (selected)
+            if numericdif (selected) (x 0 top) 1
             if suitequal (selected) suit
             move (selected) (x 0 top)
             unselect
@@ -75,7 +76,8 @@ export class TableCreatorService {
             interact
             state 1
             click x 0
-            if numericequal (selected) 1 // todo if istop (selected)
+            if istop (selected)
+            if numericequal (selected) 1
             if suitequal (selected) suit
             move (selected) (x 0 top)
             unselect
@@ -97,9 +99,23 @@ export class TableCreatorService {
             move (selectedstack) (x 2 top)
             unselect
             setstate 0
+             
+            let 6 x (2 3 4 5 6 7) // move king to empty main
+            interact
+            state 1
+            click x 2
+            if empty x 2
+            if numericequal (selected) 13
+            move (selectedstack) (x 2 top)
+            unselect
+            setstate 0
             
-            // todo moving king to empty main
-            // todo allow unselecting when clicking on main
+            let 6 x (2 3 4 5 6 7) // unselect main
+            interact
+            state 1
+            click x 2
+            unselect
+            setstate 0
             `;
     }
 

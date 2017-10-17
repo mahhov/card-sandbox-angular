@@ -20,6 +20,6 @@ export class NumericEqual extends Condition {
         let pos: Pos = this.selector.select(table)[0];
         let card: Card = table.findDeck(pos.x, pos.y).getCard(pos.order);
 
-        return card.num === this.value;
+        return card && card.num === this.value;
     }
 }
