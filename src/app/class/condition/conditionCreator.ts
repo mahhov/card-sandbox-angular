@@ -1,6 +1,7 @@
 import {ColorSame} from "./colorSame";
 import {Condition} from "./condition";
 import {Empty} from "./empty";
+import {IsTop} from "./isTop";
 import {NumericDif} from "./numericDif";
 import {NumericEqual} from "./numericEqual";
 import {SuitEqual} from "./suitEqual";
@@ -21,6 +22,8 @@ export class ConditionCreator {
                 return new NumericDif(words, not);
             case 'colorsame':
                 return new ColorSame(words, not);
+            case 'istop':
+                return new IsTop(words, not);
             default:
                 return null;
         }

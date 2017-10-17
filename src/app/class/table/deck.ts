@@ -78,7 +78,6 @@ export class Deck {
     }
 
     removeCard(order: string): Card {
-        console.log('begin remove card; order: ', order, ' ; this.cards: ', this.cards);
         if (order === 'top')
             return this.cards.pop();
         else if (order === 'bottom')
