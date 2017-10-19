@@ -16,10 +16,10 @@ export class TableCreatorService {
                     TableCreatorService.getInput())));
     }
 
-    private static getInput(): string {
-        return `
+    private static getInput(): string[] {
+        let input: string = `
             init
-            table 10 8
+            table 8 6
             deck 0 0 full shuffle visible // deck
             deck 0 2 empty order visible // draw
             
@@ -96,7 +96,7 @@ export class TableCreatorService {
             click x 2
             if numericdif (selected) (x 2 top) -1
             ifnot colorsame (selected) (x 2 top)
-            if propersolitairestack (selectedstack)
+            if propersolitairestack (selectedstack) // replace properSolitaireStack condition with alternating color & decrementing numeric conditions
             move (selectedrepeatstack) (x 2 top)
             unselect
             setstate 0
@@ -107,7 +107,7 @@ export class TableCreatorService {
             click x 2
             if empty x 2
             if numericequal (selected) 13
-            if propersolitairestack (selectedstack)
+            if propersolitairestack (selectedstack) // replace properSolitaireStack condition with alternating color & decrementing numeric conditions
             move (selectedrepeatstack) (x 2 top)
             unselect
             setstate 0
@@ -119,10 +119,10 @@ export class TableCreatorService {
             unselect
             setstate 0
             `;
+        return input.split('\n');
     }
 
-    private static preprocessInput(input: string): string[][] {
-        let lines = input.split('\n');
+    private static preprocessInput(lines: string[]): string[][] {
         lines = _.map(lines, (line: string): string => line.replace(/(\(|\)|\/\/.*)/g, '').trim().toLocaleLowerCase());
 
         let blocks: string[][] = [[]];

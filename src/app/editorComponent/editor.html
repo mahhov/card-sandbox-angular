@@ -1,0 +1,45 @@
+<div>
+    <div class="row">
+        <div class="col-xs-6">
+            <select size=12 [(ngModel)]="selectedScript">
+                <option *ngFor="let script of scriptList" [ngValue]="script">{{script.name}}</option>
+            </select>
+        </div>
+
+        <div class="col-xs-6">
+            <textarea rows="10" readonly [ngModel]="selectedScript.getScriptString()"></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input [(ngModel)]="programName"/>
+            <button class="btn btn-primary" (click)="newFile(programName)">new</button>
+            <button class="btn btn-primary" (click)="editFile()">edit</button>
+            <button class="btn btn-primary" (click)="saveFile()">save</button>
+            <button class="btn btn-primary" (click)="nothing">play</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <textarea rows="40"></textarea>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .row {
+        margin: 20px;
+    }
+
+    .btn {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    select, textarea {
+        width: 100%;
+    }
+</style>
