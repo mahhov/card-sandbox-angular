@@ -13,17 +13,18 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <input [(ngModel)]="programName"/>
-            <button class="btn btn-primary" (click)="newFile(programName)">new</button>
-            <button class="btn btn-primary" (click)="editFile()">edit</button>
-            <button class="btn btn-primary" (click)="saveFile()">save</button>
-            <button class="btn btn-primary" (click)="nothing">play</button>
+            <input [(ngModel)]="editingScriptName"/>
+            <button class="btn btn-primary" (click)="newScript()">new</button>
+            <button class="btn btn-primary" (click)="editScript()">edit</button>
+            <button class="btn btn-primary" (click)="saveScript()">save</button>
+            <button class="btn btn-primary" (click)="deleteScript()">delete</button>
+            <button class="btn btn-primary" (click)="nothing()">play</button>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
-            <textarea rows="40"></textarea>
+            <textarea rows="40" [(ngModel)]="editingScriptBody"></textarea>
         </div>
     </div>
 </div>

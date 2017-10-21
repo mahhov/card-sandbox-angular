@@ -1,38 +1,43 @@
 import {Component} from "@angular/core";
 import {Script} from "../class/script";
-import {ScriptRepository} from "../layer/scriptRepository";
+import {ScriptEditorService} from "../layer/scriptEditorService";
 
 @Component({
     selector: 'editor',
     templateUrl: './editor.html',
-    providers: [ScriptRepository]
+    providers: [ScriptEditorService]
 })
 
 export class Editor {
     scriptList: Script[];
     selectedScript: Script;
-    programName: string;
+    editingScript: Script;
+    editingScriptName: string;
+    editingScriptBody: string;
 
-    constructor(private scriptRepository: ScriptRepository) {
+    constructor(private scriptRepository: ScriptEditorService) {
         this.scriptList = this.scriptRepository.getScriptList();
         this.selectedScript = this.scriptList[0];
-        console.log('construct', this.scriptList);
     }
 
-    ngOnInit() {
-        this.scriptList = this.scriptRepository.getScriptList();
-        this.selectedScript = this.scriptList[0];
-        console.log('init', this.scriptList);
+    newScript(): void {
+        this.scriptRepository.add(this.editingScriptName);
     }
 
-    newFile(name: string): void {
-        this.scriptList = this.scriptRepository.add(name);
+    editScript(): void {
+        this.editingScript = this.selectedScript;
+        this.editingScriptName = this.selectedScript.name;
+        this.editingScriptBody = this.editingScript.getScriptString();
     }
 
-    editFile(): void {
+    saveScript(): void {
+        this.scriptRepository.add(this.editingScriptName);
+        this.editingScript = this.scriptRepository.find(this.editingScriptName);
+        this.editingScript.setScriptString(this.editingScriptBody);
     }
 
-    saveFile(): void {
+    deleteScript(): void {
+        this.scriptRepository.remove(this.editingScriptName);
     }
 
     nothing(): void {

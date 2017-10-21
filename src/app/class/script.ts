@@ -16,4 +16,8 @@ export class Script {
         });
         return r;
     }
+
+    setScriptString(bodyScript: string): void {
+        this.lines = bodyScript.split('\n');
+    }
 }
