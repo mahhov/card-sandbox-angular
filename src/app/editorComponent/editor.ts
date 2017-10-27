@@ -5,7 +5,6 @@ import {ScriptEditorService} from "../layer/scriptEditorService";
 @Component({
     selector: 'editor',
     templateUrl: './editor.html',
-    providers: [ScriptEditorService]
 })
 
 export class Editor {

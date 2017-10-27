@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
 import * as _ from "underscore";
 import {Script} from "../class/script";
+import {ScriptRepostiory} from "./scriptRepository";
 
 @Injectable()
 export class ScriptEditorService {
     private scriptList: Script[];
 
-    constructor() {
+    constructor(private scriptRepostiory: ScriptRepostiory) {
         this.scriptList = _.map(['orange', 'yellow', 'three', 'elephant', 'potato', 'moonlight', 'Africa'], (x: string): Script => {
             return new Script(x, ['what', 'is', 'the', 'meaning', 'of', x]);
         });
