@@ -1,8 +1,8 @@
 <div>
     <div class="row">
         <div class="col-xs-6">
-            <select size=12 [(ngModel)]="scriptList[selectedScript]">
-                <option *ngFor="let script of scriptList" [ngValue]="script">{{script.name}}</option>
+            <select size=12 [(ngModel)]="selectedScript">
+                <option *ngFor="let script of scriptList; let i = index" [ngValue]="i">{{script.name}}</option>
             </select>
         </div>
 

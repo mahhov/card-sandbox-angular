@@ -36,6 +36,6 @@ export class Editor {
     }
 
     nothing(): void {
-        console.log(this.scriptList[this.selectedScript]);
+        console.log(this.scriptList);
     }
 }
