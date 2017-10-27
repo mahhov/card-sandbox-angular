@@ -1,20 +1,26 @@
 import {Injectable} from "@angular/core";
 import * as _ from "underscore";
 import {Script} from "../class/script";
+import {ScriptEntity} from "../class/scriptEntity";
 import {ScriptRepostiory} from "./scriptRepository";
 
 @Injectable()
 export class ScriptEditorService {
+    private user: string;
     private scriptList: Script[];
 
     constructor(private scriptRepostiory: ScriptRepostiory) {
-        this.scriptList = _.map(['orange', 'yellow', 'three', 'elephant', 'potato', 'moonlight', 'Africa'], (x: string): Script => {
-            return new Script(x, ['what', 'is', 'the', 'meaning', 'of', x]);
-        });
+        this.user = 'default';
     }
 
     public getScriptList(): Script[] {
-        return this.scriptList
+        this.scriptList = [];
+        this.scriptRepostiory.getAll(this.user).then((scriptList: ScriptEntity[]): void => {
+            _.each(scriptList, (scriptEntity: ScriptEntity): void => {
+                this.scriptList.push(ScriptEntity.toScript(scriptEntity));
+            });
+        });
+        return this.scriptList;
     }
 
     public add(name: string): void {
@@ -22,18 +28,26 @@ export class ScriptEditorService {
             this.scriptList.push(new Script(name, []));
     }
 
-    public find(name: string): Script {
-        return name && _.find(this.scriptList, (script: Script): boolean => {
-                return script.name === name
-            });
+    public update(name: string, body: string): void {
+        this.add(name);
+        this.find(name).setScriptString(body);
+        this.scriptRepostiory.update(this.user, name, body);
     }
 
-    public remove(name: string) {
+    public remove(name: string): void {
         let index: number = _.findIndex(this.scriptList, (script: Script): boolean => {
             return script.name === name;
         });
-        if (index !== -1)
+        if (index !== -1) {
             this.scriptList.splice(index, 1);
+            this.scriptRepostiory.remove(this.user, name);
+        }
+    }
+
+    private find(name: string): Script {
+        return name && _.find(this.scriptList, (script: Script): boolean => {
+                return script.name === name
+            });
     }
 
     private contains(name: string): boolean {

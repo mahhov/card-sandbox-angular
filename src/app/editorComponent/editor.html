@@ -1,13 +1,13 @@
 <div>
     <div class="row">
         <div class="col-xs-6">
-            <select size=12 [(ngModel)]="selectedScript">
+            <select size=12 [(ngModel)]="scriptList[selectedScript]">
                 <option *ngFor="let script of scriptList" [ngValue]="script">{{script.name}}</option>
             </select>
         </div>
 
-        <div class="col-xs-6">
-            <textarea rows="10" readonly [ngModel]="selectedScript.getScriptString()"></textarea>
+        <div class="col-xs-6" *ngIf="scriptList[selectedScript]">
+            <textarea rows="10" readonly [ngModel]="scriptList[selectedScript].getScriptString()"></textarea>
         </div>
     </div>
 

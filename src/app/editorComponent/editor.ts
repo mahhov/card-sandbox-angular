@@ -9,36 +9,33 @@ import {ScriptEditorService} from "../layer/scriptEditorService";
 
 export class Editor {
     scriptList: Script[];
-    selectedScript: Script;
-    editingScript: Script;
+    selectedScript: number;
     editingScriptName: string;
     editingScriptBody: string;
 
-    constructor(private scriptRepository: ScriptEditorService) {
-        this.scriptList = this.scriptRepository.getScriptList();
-        this.selectedScript = this.scriptList[0];
+    constructor(private scriptEditorService: ScriptEditorService) {
+        this.scriptList = this.scriptEditorService.getScriptList();
+        this.selectedScript = 0;
     }
 
     newScript(): void {
-        this.scriptRepository.add(this.editingScriptName);
+        this.scriptEditorService.add(this.editingScriptName);
     }
 
     editScript(): void {
-        this.editingScript = this.selectedScript;
-        this.editingScriptName = this.selectedScript.name;
-        this.editingScriptBody = this.editingScript.getScriptString();
+        this.editingScriptName = this.scriptList[this.selectedScript].name;
+        this.editingScriptBody = this.scriptList[this.selectedScript].getScriptString();
     }
 
     saveScript(): void {
-        this.scriptRepository.add(this.editingScriptName);
-        this.editingScript = this.scriptRepository.find(this.editingScriptName);
-        this.editingScript.setScriptString(this.editingScriptBody);
+        this.scriptEditorService.update(this.editingScriptName, this.editingScriptBody);
     }
 
     deleteScript(): void {
-        this.scriptRepository.remove(this.editingScriptName);
+        this.scriptEditorService.remove(this.editingScriptName);
     }
 
     nothing(): void {
+        console.log(this.scriptList[this.selectedScript]);
     }
 }
