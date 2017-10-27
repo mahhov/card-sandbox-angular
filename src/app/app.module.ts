@@ -10,7 +10,6 @@ import {ScriptRepostiory} from "./layer/scriptRepository";
 import {MainPanel} from "./mainPanelComponent/mainPanel";
 import {TableCanvas} from "./tableCanvasComponent/tableCanvas";
 
-
 @NgModule({
     declarations: [
         AppComponent,
