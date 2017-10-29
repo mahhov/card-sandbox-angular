@@ -8,23 +8,22 @@ import {AppComponent} from "./app";
 import {Editor} from "./editorComponent/editor";
 import {ScriptEditorService} from "./layer/scriptEditorService";
 import {ScriptRepostiory} from "./layer/scriptRepository";
+import {TableCreatorService} from "./layer/tableCreatorService";
 import {TableCanvas} from "./tableCanvasComponent/tableCanvas";
+
 
 const appRoutes: Routes = [
     {
         path: 'editor',
         component: Editor
-    },
-    {
-        path: 'table',
-        component: TableCanvas,
-    },
-    {
+    }, {
         path: '',
         redirectTo: 'editor',
         pathMatch: 'full'
-    }
-];
+    }, {
+        path: 'table',
+        component: TableCanvas,
+    }];
 
 @NgModule({
     declarations: [
@@ -44,7 +43,8 @@ const appRoutes: Routes = [
     ],
     providers: [
         ScriptEditorService,
-        ScriptRepostiory
+        ScriptRepostiory,
+        TableCreatorService
     ]
 })
 

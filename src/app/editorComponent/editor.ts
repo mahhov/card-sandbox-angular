@@ -1,6 +1,8 @@
 import {Component} from "@angular/core";
+import {Router} from "@angular/router";
 import {Script} from "../class/script";
 import {ScriptEditorService} from "../layer/scriptEditorService";
+import {TableCreatorService} from "../layer/tableCreatorService";
 
 @Component({
     selector: 'editor',
@@ -13,7 +15,7 @@ export class Editor {
     editingScriptName: string;
     editingScriptBody: string;
 
-    constructor(private scriptEditorService: ScriptEditorService) {
+    constructor(private router: Router, private scriptEditorService: ScriptEditorService, private tableCreatorService: TableCreatorService) {
         this.scriptList = this.scriptEditorService.getScriptList();
         this.selectedScript = 0;
     }
@@ -35,7 +37,10 @@ export class Editor {
         this.scriptEditorService.remove(this.editingScriptName);
     }
 
-    nothing(): void {
-        console.log(this.scriptList);
+    demoScript(): void {
+        let demoScript: Script = new Script(this.editingScriptName, null);
+        demoScript.setScriptString(this.editingScriptBody);
+        this.tableCreatorService.demoScript = demoScript;
+        this.router.navigate(['/table']);
     }
 }

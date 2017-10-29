@@ -4,125 +4,23 @@ import {Dictionary} from "underscore";
 import {ActionCreator} from "../class/action/actionCreator";
 import {Interact} from "../class/interact";
 import {Program} from "../class/program";
+import {Script} from "../class/script";
 import {Deck} from "../class/table/deck";
 import {Table} from "../class/table/table";
 
 @Injectable()
 export class TableCreatorService {
+    demoScript: Script;
+
     public getTable(): Table {
-        return TableCreatorService.createTable(
-            TableCreatorService.createProgram(
-                TableCreatorService.preprocessInput(
-                    TableCreatorService.getInput())));
+        return this.createTable(this.createProgram(this.preprocessInput(this.getInput())));
     }
 
-    private static getInput(): string[] {
-        let input: string = `
-            init
-            table 8 6
-            deck 0 0 full shuffle visible // deck
-            deck 0 2 empty order visible // draw
-            
-            let 4 x (2 3 4 5) // pillars
-            init
-            deck x 0 empty order visible
-            
-            let 6 x (2 3 4 5 6 7) n (1 2 3 4 5 6) // main
-            init
-            deck x 2 empty order visible vert -1
-            move (stack 0 0 n) (x 2 top)
-
-            interact // draw
-            state 0 1
-            click 0 0
-            ifnot empty 0 0
-            move (0 0 top) (0 2 top)
-            unselect
-            setstate 0
-            
-            interact // reshuffle
-            state 0 1
-            click 0 0
-            if empty 0 0
-            move (stack 0 2 all) (0 0 top)
-            unselect
-            setstate 0
-
-            interact // select draw
-            state 0
-            click 0 2
-            ifnot empty 0 2
-            setselect (0 2 top)
-            setstate 1
-
-            interact // unselect draw
-            state 1
-            click 0 2
-            unselect
-            setstate 0
-            
-            let 4 x (2 3 4 5) suit (h s d c) // add to pillar
-            interact
-            state 1
-            click x 0
-            if istop (selected)
-            if numericdif (selected) (x 0 top) 1
-            if suitequal (selected) suit
-            move (selected) (x 0 top)
-            unselect
-            setstate 0
-             
-            let 4 x (2 3 4 5) suit (h s d c) // move base to pillar
-            interact
-            state 1
-            click x 0
-            if istop (selected)
-            if numericequal (selected) 1
-            if suitequal (selected) suit
-            move (selected) (x 0 top)
-            unselect
-            setstate 0
-            
-            let 6 x (2 3 4 5 6 7) // select main
-            interact
-            state 0
-            click x 2
-            setselect (highlighted)
-            setstate 1
-            
-            let 6 x (2 3 4 5 6 7) // move to main
-            interact
-            state 1
-            click x 2
-            if numericdif (selected) (x 2 top) -1
-            ifnot colorsame (selected) (x 2 top)
-            if propersolitairestack (selectedstack) // replace properSolitaireStack condition with alternating color & decrementing numeric conditions
-            move (selectedrepeatstack) (x 2 top)
-            unselect
-            setstate 0
-             
-            let 6 x (2 3 4 5 6 7) // move king to empty main
-            interact
-            state 1
-            click x 2
-            if empty x 2
-            if numericequal (selected) 13
-            if propersolitairestack (selectedstack) // replace properSolitaireStack condition with alternating color & decrementing numeric conditions
-            move (selectedrepeatstack) (x 2 top)
-            unselect
-            setstate 0
-            
-            let 6 x (2 3 4 5 6 7) // unselect main
-            interact
-            state 1
-            click x 2
-            unselect
-            setstate 0
-            `;
-        return input.split('\n');
+    private getInput(): string[] {
+        return this.demoScript.lines;
     }
 
-    private static preprocessInput(lines: string[]): string[][] {
+    private preprocessInput(lines: string[]): string[][] {
         lines = _.map(lines, (line: string): string => line.replace(/(\(|\)|\/\/.*)/g, '').trim().toLocaleLowerCase());
 
         let blocks: string[][] = [[]];
@@ -168,7 +66,7 @@ export class TableCreatorService {
         return expandedBlocks;
     }
 
-    private static createProgram(blocks: string[][]): Program {
+    private createProgram(blocks: string[][]): Program {
         let program: Program = new Program();
 
         _.each(blocks, (block: string[]): void => {
@@ -186,7 +84,7 @@ export class TableCreatorService {
         return program;
     }
 
-    private static createTable(program: Program): Table {
+    private createTable(program: Program): Table {
         let table: Table = new Table();
 
         _.each(program.init, (initLine: string): void => {

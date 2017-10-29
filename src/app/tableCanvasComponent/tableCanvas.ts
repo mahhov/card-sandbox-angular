@@ -10,7 +10,6 @@ import {TableCreatorService} from "../layer/tableCreatorService";
 @Component({
     selector: 'table-canvas',
     templateUrl: './tableCanvas.html',
-    providers: [TableCreatorService]
 })
 
 export class TableCanvas {
