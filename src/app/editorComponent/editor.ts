@@ -38,8 +38,13 @@ export class Editor {
     }
 
     demoScript(): void {
-        let demoScript: Script = new Script(this.editingScriptName, null);
-        demoScript.setScriptString(this.editingScriptBody);
+        let demoScript: Script;
+        if (this.editingScriptBody) {
+            demoScript = new Script(this.editingScriptName, null);
+            demoScript.setScriptString(this.editingScriptBody);
+        } else 
+            demoScript = this.scriptList[this.selectedScript];
+
         this.tableCreatorService.demoScript = demoScript;
         this.router.navigate(['/table']);
     }
