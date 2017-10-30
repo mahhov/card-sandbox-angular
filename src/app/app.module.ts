@@ -9,8 +9,8 @@ import {Editor} from "./editorComponent/editor";
 import {ScriptEditorService} from "./layer/scriptEditorService";
 import {ScriptRepostiory} from "./layer/scriptRepository";
 import {TableCreatorService} from "./layer/tableCreatorService";
+import {Navigation} from "./navigationComponent/navigation";
 import {TableCanvas} from "./tableCanvasComponent/tableCanvas";
-
 
 const appRoutes: Routes = [
     {
@@ -28,6 +28,7 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
+        Navigation,
         TableCanvas,
         Editor
     ],

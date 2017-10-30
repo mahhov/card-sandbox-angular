@@ -7,6 +7,7 @@ import {TableCreatorService} from "../layer/tableCreatorService";
 @Component({
     selector: 'editor',
     templateUrl: './editor.html',
+    styleUrls: ['../style/editor.scss']
 })
 
 export class Editor {
@@ -42,7 +43,7 @@ export class Editor {
         if (this.editingScriptBody) {
             demoScript = new Script(this.editingScriptName, null);
             demoScript.setScriptString(this.editingScriptBody);
-        } else 
+        } else
             demoScript = this.scriptList[this.selectedScript];
 
         this.tableCreatorService.demoScript = demoScript;
