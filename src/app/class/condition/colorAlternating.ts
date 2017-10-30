@@ -7,7 +7,7 @@ import {Deck} from "../table/deck";
 import {Table} from "../table/table";
 import {Condition} from "./condition";
 
-export class ProperSolitaireStack extends Condition {
+export class ColorAlternating extends Condition {
     selector: Selector;
 
     constructor(words: string[], not: boolean) {
@@ -20,11 +20,9 @@ export class ProperSolitaireStack extends Condition {
         let deck: Deck = table.findDeck(poss[0].x, poss[0].y);
 
         let prevCard: Card;
-        console.log('begin', poss);
         return _.every(poss, (pos: Pos, index: number): boolean => {
             let curCard = deck.getCard(pos.order);
-            console.log('checking ', curCard);
-            if (prevCard && (curCard.isRed() === prevCard.isRed() || prevCard.num - curCard.num !== 1))
+            if (prevCard && curCard.isRed() === prevCard.isRed())
                 return false;
             prevCard = curCard;
             return true;
