@@ -109,21 +109,21 @@ export class TableCanvas {
 
     private drawDeck(deck: Deck): void {
         if (!deck.cards.length)
-            this.drawCard(this.getCardRect(deck, 0), '', deck.getString());
+            this.drawCard(this.getCardRect(deck, 0), '', deck.getString(), '#000');
 
         _.each(deck.cards, (card: Card, cardIndex: number): void => {
             let cardRect: Rect = this.getCardRect(deck, cardIndex);
             let centerText: string = deck.getCardString(card);
             let cornerText: string = deck.cards.length <= 1 ? '' : (deck.horiz !== 0 || deck.vert !== 0 ? centerText : deck.cards.length + '' );
-            this.drawCard(cardRect, cornerText, deck.getCardString(card));
+            this.drawCard(cardRect, cornerText, deck.getCardString(card), card.getDrawTextColor());
         });
     }
 
-    private drawCard(cardRect: Rect, cornerText: string, centerText: string) {
+    private drawCard(cardRect: Rect, cornerText: string, centerText: string, textColor: string) {
         this.drawCanvasRect(cardRect.left, cardRect.top, cardRect.width, cardRect.height, cardRect.color, true);
         this.drawCanvasRect(cardRect.left, cardRect.top, cardRect.width, cardRect.height, '#000', false);
-        this.drawCanvasText(cornerText, cardRect.left + this.cornerMargin, cardRect.top + this.fontHeight + this.cornerMargin);
-        this.drawCanvasText(centerText, cardRect.left + cardRect.width / 2 - this.fontWidth * centerText.length, cardRect.top + cardRect.height / 2 + this.fontHeight / 2);
+        this.drawCanvasText(cornerText, cardRect.left + this.cornerMargin, cardRect.top + this.fontHeight + this.cornerMargin, textColor);
+        this.drawCanvasText(centerText, cardRect.left + cardRect.width / 2 - this.fontWidth * centerText.length, cardRect.top + cardRect.height / 2 + this.fontHeight / 2, textColor);
     }
 
     // --- util ---
@@ -155,14 +155,18 @@ export class TableCanvas {
     }
 
     private drawCanvasRect(left: number, top: number, width: number, height: number, color: string, fill: boolean): void {
-        this.ctx.fillStyle = color;
-        if (fill)
+        if (fill) {
+            this.ctx.fillStyle = color;
             this.ctx.fillRect(left, top, width, height);
-        else
+        }
+        else {
+            this.ctx.strokeStyle = color;
             this.ctx.strokeRect(left, top, width, height);
+        }
     }
 
-    private drawCanvasText(text: string, left: number, bottom: number): void {
+    private drawCanvasText(text: string, left: number, bottom: number, color: string): void {
+        this.ctx.strokeStyle = color;
         this.ctx.strokeText(text, left, bottom);
     }
 }
