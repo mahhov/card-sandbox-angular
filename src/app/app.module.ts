@@ -5,21 +5,33 @@ import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule, Routes} from "@angular/router";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {AppComponent} from "./app";
+import {CreateLogin} from "./createLoginComponent/createLogin";
 import {Editor} from "./editorComponent/editor";
 import {ScriptEditorService} from "./layer/scriptEditorService";
 import {ScriptRepostiory} from "./layer/scriptRepository";
 import {TableCreatorService} from "./layer/tableCreatorService";
+import {Library} from "./libraryComponent/library";
+import {Login} from "./loginComponent/login";
 import {Navigation} from "./navigationComponent/navigation";
 import {TableCanvas} from "./tableCanvasComponent/tableCanvas";
 
 const appRoutes: Routes = [
     {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    }, {
+        path: 'login',
+        component: Login
+    }, {
+        path: 'createLogin',
+        component: CreateLogin
+    }, {
         path: 'editor',
         component: Editor
     }, {
-        path: '',
-        redirectTo: 'editor',
-        pathMatch: 'full'
+        path: 'library',
+        component: Library
     }, {
         path: 'table',
         component: TableCanvas,
@@ -29,8 +41,11 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent,
         Navigation,
-        TableCanvas,
-        Editor
+        Login,
+        CreateLogin,
+        Editor,
+        Library,
+        TableCanvas
     ],
     imports: [
         BrowserModule,

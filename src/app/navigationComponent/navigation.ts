@@ -9,4 +9,16 @@ import {Router} from "@angular/router";
 export class Navigation {
     constructor(private router: Router) {
     }
+
+    login(): void {
+        this.router.navigate(['/login']);
+    }
+
+    editor(): void {
+        this.router.navigate(['/editor']);
+    }
+
+    library(): void {
+        this.router.navigate(['/library']);
+    }
 }
