@@ -7,7 +7,14 @@ export class ScriptRepostiory {
     constructor(private http: HttpClient) {
     }
 
-    public getAll(user: String): Promise<ScriptEntity[]> {
+    public getAll(): Promise<ScriptEntity[]> {
+        return this.http.get<ScriptEntity[]>('http://localhost:8080/script').toPromise()
+            .catch((error: any): void => {
+                console.log(error);
+            });
+    }
+
+    public getAllByUser(user: String): Promise<ScriptEntity[]> {
         return this.http.get<ScriptEntity[]>('http://localhost:8080/script/' + user).toPromise()
             .catch((error: any): void => {
                 console.log(error);

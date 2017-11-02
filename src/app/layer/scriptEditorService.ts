@@ -15,7 +15,7 @@ export class ScriptEditorService {
 
     public getScriptList(): Script[] {
         this.scriptList = [];
-        this.scriptRepostiory.getAll(this.user).then((scriptList: ScriptEntity[]): void => {
+        this.scriptRepostiory.getAllByUser(this.user).then((scriptList: ScriptEntity[]): void => {
             _.each(scriptList, (scriptEntity: ScriptEntity): void => {
                 this.scriptList.push(ScriptEntity.toScript(scriptEntity));
             });
