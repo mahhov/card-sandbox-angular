@@ -3,7 +3,7 @@ import {Injectable} from "@angular/core";
 import {ScriptEntity} from "../class/scriptEntity";
 
 @Injectable()
-export class ScriptRepostiory {
+export class ScriptRepository {
     constructor(private http: HttpClient) {
     }
 

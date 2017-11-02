@@ -2,20 +2,20 @@ import {Injectable} from "@angular/core";
 import * as _ from "underscore";
 import {Script} from "../class/script";
 import {ScriptEntity} from "../class/scriptEntity";
-import {ScriptRepostiory} from "./scriptRepository";
+import {ScriptRepository} from "./scriptRepository";
 
 @Injectable()
 export class ScriptEditorService {
     private user: string;
     private scriptList: Script[];
 
-    constructor(private scriptRepostiory: ScriptRepostiory) {
+    constructor(private scriptRepository: ScriptRepository) {
         this.user = 'default';
     }
 
     public getScriptList(): Script[] {
         this.scriptList = [];
-        this.scriptRepostiory.getAllByUser(this.user).then((scriptList: ScriptEntity[]): void => {
+        this.scriptRepository.getAllByUser(this.user).then((scriptList: ScriptEntity[]): void => {
             _.each(scriptList, (scriptEntity: ScriptEntity): void => {
                 this.scriptList.push(ScriptEntity.toScript(scriptEntity));
             });
@@ -31,7 +31,7 @@ export class ScriptEditorService {
     public update(name: string, body: string): void {
         this.add(name);
         this.find(name).setScriptString(body);
-        this.scriptRepostiory.update(this.user, name, body);
+        this.scriptRepository.update(this.user, name, body);
     }
 
     public remove(name: string): void {
@@ -40,7 +40,7 @@ export class ScriptEditorService {
         });
         if (index !== -1) {
             this.scriptList.splice(index, 1);
-            this.scriptRepostiory.remove(this.user, name);
+            this.scriptRepository.remove(this.user, name);
         }
     }
 

@@ -7,8 +7,9 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {AppComponent} from "./app";
 import {CreateLogin} from "./createLoginComponent/createLogin";
 import {Editor} from "./editorComponent/editor";
+import {AuthenticationRepostiory} from "./layer/authenticationRepository";
 import {ScriptEditorService} from "./layer/scriptEditorService";
-import {ScriptRepostiory} from "./layer/scriptRepository";
+import {ScriptRepository} from "./layer/scriptRepository";
 import {TableCreatorService} from "./layer/tableCreatorService";
 import {Library} from "./libraryComponent/library";
 import {Login} from "./loginComponent/login";
@@ -58,8 +59,9 @@ const appRoutes: Routes = [
         AppComponent
     ],
     providers: [
+        ScriptRepository,
+        AuthenticationRepostiory,
         ScriptEditorService,
-        ScriptRepostiory,
         TableCreatorService
     ]
 })
