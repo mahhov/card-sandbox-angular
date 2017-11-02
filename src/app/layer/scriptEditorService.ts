@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import * as _ from "underscore";
 import {Script} from "../class/script";
 import {ScriptEntity} from "../class/scriptEntity";
+import {AuthenticationService} from "./authenticationService";
 import {ScriptRepository} from "./scriptRepository";
 
 @Injectable()
@@ -9,7 +10,7 @@ export class ScriptEditorService {
     private user: string;
     private scriptList: Script[];
 
-    constructor(private scriptRepository: ScriptRepository) {
+    constructor(private authenticationService: AuthenticationService, private scriptRepository: ScriptRepository) {
         this.user = 'default';
     }
 
@@ -31,7 +32,7 @@ export class ScriptEditorService {
     public update(name: string, body: string): void {
         this.add(name);
         this.find(name).setScriptString(body);
-        this.scriptRepository.update(this.user, name, body);
+        this.scriptRepository.update(this.authenticationService.token, this.user, name, body);
     }
 
     public remove(name: string): void {
@@ -40,7 +41,7 @@ export class ScriptEditorService {
         });
         if (index !== -1) {
             this.scriptList.splice(index, 1);
-            this.scriptRepository.remove(this.user, name);
+            this.scriptRepository.remove(this.authenticationService.token, this.user, name);
         }
     }
 

@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../layer/authenticationService";
 
 @Component({
     selector: 'login',
@@ -8,16 +9,18 @@ import {Router} from "@angular/router";
 })
 
 export class Login {
-    private user: string;
+    private username: string;
+    private password: string;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private authenticationService: AuthenticationService) {
     }
 
     navigateCreateLogin(): void {
-        this.router.navigate(['/createLogin', this.user]);
+        this.router.navigate(['/createLogin']);
     }
 
     login(): void {
-        
+        this.authenticationService.login(this.username, this.password);
+        this.router.navigate(['/library']);
     }
 }

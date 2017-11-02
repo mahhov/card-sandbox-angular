@@ -8,6 +8,7 @@ import {AppComponent} from "./app";
 import {CreateLogin} from "./createLoginComponent/createLogin";
 import {Editor} from "./editorComponent/editor";
 import {AuthenticationRepostiory} from "./layer/authenticationRepository";
+import {AuthenticationService} from "./layer/authenticationService";
 import {ScriptEditorService} from "./layer/scriptEditorService";
 import {ScriptRepository} from "./layer/scriptRepository";
 import {TableCreatorService} from "./layer/tableCreatorService";
@@ -59,8 +60,9 @@ const appRoutes: Routes = [
         AppComponent
     ],
     providers: [
-        ScriptRepository,
         AuthenticationRepostiory,
+        ScriptRepository,
+        AuthenticationService,
         ScriptEditorService,
         TableCreatorService
     ]

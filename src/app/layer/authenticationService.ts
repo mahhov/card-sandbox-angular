@@ -3,7 +3,7 @@ import {AuthenticationRepostiory} from "./authenticationRepository";
 
 @Injectable()
 export class AuthenticationService {
-    private token: string;
+    public token: string;
 
     constructor(private authenticationRepository: AuthenticationRepostiory) {
     }

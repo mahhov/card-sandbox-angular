@@ -1,1 +1,22 @@
-<div></div>
+<div class="col-xs-2 col-xs-offset-5">
+    <div class="row">
+        Username
+        <input class="form-control" [(ngModel)]="username">
+    </div>
+    <div class="row">
+        Password
+        <input type="password" class="form-control" [(ngModel)]="password">
+    </div>
+    <div class="row">
+        Confirm Password
+        <input type="password" class="form-control" [(ngModel)]="password">
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <button class="btn btn-primary col-xs-12" (click)="navigateLogin()">login</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-primary col-xs-12" (click)="createUser()">create login</button>
+        </div>
+    </div>
+</div>

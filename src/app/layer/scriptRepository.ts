@@ -14,28 +14,28 @@ export class ScriptRepository {
             });
     }
 
-    public getAllByUser(user: String): Promise<ScriptEntity[]> {
+    public getAllByUser(user: string): Promise<ScriptEntity[]> {
         return this.http.get<ScriptEntity[]>('http://localhost:8080/script/' + user).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
     }
 
-    public get(user: String, name: String): Promise<ScriptEntity> {
+    public get(user: string, name: string): Promise<ScriptEntity> {
         return this.http.get<ScriptEntity>('http://localhost:8080/script/' + user + '/' + name).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
     }
 
-    public update(user: String, name: String, body: String): void {
+    public update(token: string, user: string, name: string, body: string): void {
         this.http.put('http://localhost:8080/script/' + user + '/' + name, body, {responseType: 'text'}).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
     }
 
-    public remove(user: String, name: String): void {
+    public remove(token: string, user: string, name: string): void {
         this.http.delete('http://localhost:8080/script/' + user + '/' + name, {responseType: 'text'}).toPromise()
             .catch((error: any): void => {
                 console.log(error);
