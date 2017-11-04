@@ -20,14 +20,7 @@ export class Library {
     }
 
     demoScript(): void {
-        // let demoScript: Script;
-        // if (this.editingScriptBody) {
-        //     demoScript = new Script(this.editingScriptName, null);
-        //     demoScript.setScriptString(this.editingScriptBody);
-        // } else
-        //     demoScript = this.scriptList[this.selectedScript];
-        //
-        // this.tableCreatorService.demoScript = demoScript;
-        // this.router.navigate(['/table']);
+        this.tableCreatorService.setDemoScript(this.scriptList[this.selectedScript]);
+        this.router.navigate(['/table']);
     }
 }
