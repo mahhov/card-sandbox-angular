@@ -10,13 +10,14 @@ import {TableCreatorService} from "../layer/tableCreatorService";
 @Component({
     selector: 'table-canvas',
     templateUrl: './tableCanvas.html',
+    styleUrls: ['../style/tableCanvas.scss']
 })
 
 export class TableCanvas {
     @ViewChild('myCanvas') myCanvas: ElementRef;
     ctx: CanvasRenderingContext2D;
-    readonly canvasWidth: number = 1000;
-    readonly canvasHeight: number = 1000;
+    readonly canvasWidth: number = 800;
+    readonly canvasHeight: number = 800;
     readonly tableMargin: number = .02;
     readonly spreadShift: number = .2;
     tableWidth: number;
