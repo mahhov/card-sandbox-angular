@@ -20,7 +20,9 @@ export class Login {
     }
 
     login(): void {
-        this.authenticationService.login(this.username, this.password);
-        this.router.navigate(['/library']);
+        this.authenticationService.login(this.username, this.password).then((success: boolean): void => {
+            if (success)
+                this.router.navigate(['/editor']);
+        });
     }
 }

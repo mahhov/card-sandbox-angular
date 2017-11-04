@@ -21,6 +21,9 @@ export class CreateLogin {
 
     createUser(): void {
         this.authenticationService.createUser(this.username, this.password);
-        this.router.navigate(['/library']);
+        this.authenticationService.createUser(this.username, this.password).then((success: boolean): void => {
+            if (success)
+                this.router.navigate(['/editor']);
+        });
     }
 }

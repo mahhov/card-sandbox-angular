@@ -1,6 +1,5 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {ScriptEntity} from "../class/scriptEntity";
 
 @Injectable()
 export class AuthenticationRepostiory {
@@ -23,7 +22,9 @@ export class AuthenticationRepostiory {
             'name': username,
             'password': password
         };
-        return this.http.post<string>('http://localhost:8080/token', body).toPromise()
+
+        let options = {responseType: 'text' as 'text'};
+        return this.http.post('http://localhost:8080/token', body, options).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });

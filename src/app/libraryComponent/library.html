@@ -1,1 +1,13 @@
-<div></div>
+<div class="col-xs-12">
+    <div class="row">
+        <div class="col-xs-3">
+            <select size=12 [(ngModel)]="selectedScript">
+                <option *ngFor="let script of scriptList; let i = index" [ngValue]="i">{{script.name}}</option>
+            </select>
+        </div>
+
+        <div class="col-xs-9" *ngIf="scriptList[selectedScript]">
+            <pre>{{scriptList[selectedScript].getScriptString()}}</pre>
+        </div>
+    </div>
+</div>

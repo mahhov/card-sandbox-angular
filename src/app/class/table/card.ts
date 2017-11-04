@@ -49,7 +49,6 @@ export class Card {
     }
 
     getDrawTextColor() {
-        console.log('hi', this.isRed());
         if (this.isRed())
             return Card.TEXT_COLOR_RED;
         return Card.TEXT_COLOR_BLACK;

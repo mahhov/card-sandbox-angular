@@ -1,4 +1,4 @@
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {ScriptEntity} from "../class/scriptEntity";
 
@@ -8,7 +8,7 @@ export class ScriptRepository {
     }
 
     public getAll(): Promise<ScriptEntity[]> {
-        return this.http.get<ScriptEntity[]>('http://localhost:8080/script').toPromise()
+        return this.http.get<ScriptEntity[]>('http://localhost:8080/scripts').toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
@@ -29,14 +29,18 @@ export class ScriptRepository {
     }
 
     public update(token: string, user: string, name: string, body: string): void {
-        this.http.put('http://localhost:8080/script/' + user + '/' + name, body, {responseType: 'text'}).toPromise()
+        let headers: HttpHeaders = new HttpHeaders().append('authenticationToken', token);
+        let options = {responseType: 'text' as 'text', headers: headers};
+        this.http.put('http://localhost:8080/script/' + user + '/' + name, body, options).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
     }
 
     public remove(token: string, user: string, name: string): void {
-        this.http.delete('http://localhost:8080/script/' + user + '/' + name, {responseType: 'text'}).toPromise()
+        let headers: HttpHeaders = new HttpHeaders().append('authenticationToken', token);
+        let options = {responseType: 'text' as 'text', headers: headers};
+        this.http.delete('http://localhost:8080/script/' + user + '/' + name, options).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
