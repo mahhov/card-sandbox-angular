@@ -10,7 +10,11 @@ import {Table} from "../class/table/table";
 
 @Injectable()
 export class TableCreatorService {
-    demoScript: Script;
+    private demoScript: Script;
+
+    public setDemoScript(script: Script) {
+        this.demoScript = script
+    };
 
     public getTable(): Table {
         return this.createTable(this.createProgram(this.preprocessInput(this.getInput())));

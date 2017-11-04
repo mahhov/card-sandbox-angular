@@ -46,7 +46,7 @@ export class Editor {
         } else
             demoScript = this.scriptList[this.selectedScript];
 
-        this.tableCreatorService.demoScript = demoScript;
+        this.tableCreatorService.setDemoScript(demoScript);
         this.router.navigate(['/table']);
     }
 }
