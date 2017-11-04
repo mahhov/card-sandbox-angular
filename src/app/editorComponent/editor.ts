@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {Script} from "../class/script";
+import {AuthenticationService} from "../layer/authenticationService";
 import {ScriptEditorService} from "../layer/scriptEditorService";
 import {TableCreatorService} from "../layer/tableCreatorService";
 
@@ -16,7 +17,10 @@ export class Editor {
     editingScriptName: string;
     editingScriptBody: string;
 
-    constructor(private router: Router, private scriptEditorService: ScriptEditorService, private tableCreatorService: TableCreatorService) {
+    constructor(private router: Router, private authenticationService: AuthenticationService, private scriptEditorService: ScriptEditorService, private tableCreatorService: TableCreatorService) {
+        if (!this.authenticationService.getToken())
+            this.router.navigate(['/login']);
+
         this.scriptList = this.scriptEditorService.getScriptList();
         this.selectedScript = 0;
     }
