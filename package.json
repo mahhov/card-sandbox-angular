@@ -2,7 +2,8 @@
   "name": "card-sandbox",
   "scripts": {
     "dev": "ng serve",
-    "start": "node server.js;"
+    "start": "node server.js;",
+    "postinstall": "ng build"
   },
   "dependencies": {
     "@angular/animations": "^4.4.6",
