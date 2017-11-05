@@ -1,9 +1,9 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {Script} from "../class/script";
-import {AuthenticationService} from "../layer/authenticationService";
-import {ScriptEditorService} from "../layer/scriptEditorService";
-import {TableCreatorService} from "../layer/tableCreatorService";
+import {AuthenticationService} from "../service/authenticationService";
+import {ScriptEditorService} from "../service/scriptEditorService";
+import {TableCreatorService} from "../service/tableCreatorService";
 
 @Component({
     selector: 'editor',

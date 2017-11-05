@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import * as _ from "underscore";
 import {Script} from "../class/script";
 import {ScriptEntity} from "../class/scriptEntity";
-import {ScriptRepository} from "./scriptRepository";
+import {ScriptRepository} from "../repository/scriptRepository";
 
 @Injectable()
 export class LibraryService {

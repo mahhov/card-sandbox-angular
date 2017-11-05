@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {AuthenticationRepostiory} from "./authenticationRepository";
+import {AuthenticationRepostiory} from "../repository/authenticationRepository";
 
 @Injectable()
 export class AuthenticationService {

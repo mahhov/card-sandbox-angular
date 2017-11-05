@@ -3,7 +3,7 @@ import * as _ from "underscore";
 import {Script} from "../class/script";
 import {ScriptEntity} from "../class/scriptEntity";
 import {AuthenticationService} from "./authenticationService";
-import {ScriptRepository} from "./scriptRepository";
+import {ScriptRepository} from "../repository/scriptRepository";
 
 @Injectable()
 export class ScriptEditorService {

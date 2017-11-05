@@ -5,7 +5,7 @@ import {Card} from "../class/table/card";
 import {Deck} from "../class/table/deck";
 import {Rect} from "../class/table/rect";
 import {Table} from "../class/table/table";
-import {TableCreatorService} from "../layer/tableCreatorService";
+import {TableCreatorService} from "../service/tableCreatorService";
 
 @Component({
     selector: 'table-canvas',

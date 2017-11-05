@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {Script} from "../class/script";
-import {LibraryService} from "../layer/libraryService";
-import {TableCreatorService} from "../layer/tableCreatorService";
+import {LibraryService} from "../service/libraryService";
+import {TableCreatorService} from "../service/tableCreatorService";
 
 @Component({
     selector: 'library',
