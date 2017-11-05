@@ -1,5 +1,6 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
+import {nodeUrl} from "../../environments/environment";
 import {ScriptEntity} from "../class/scriptEntity";
 
 @Injectable()
@@ -8,21 +9,21 @@ export class ScriptRepository {
     }
 
     public getAll(): Promise<ScriptEntity[]> {
-        return this.http.get<ScriptEntity[]>('http://localhost:8080/scripts').toPromise()
+        return this.http.get<ScriptEntity[]>(nodeUrl + 'scripts').toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
     }
 
     public getAllByUser(user: string): Promise<ScriptEntity[]> {
-        return this.http.get<ScriptEntity[]>('http://localhost:8080/script/' + user).toPromise()
+        return this.http.get<ScriptEntity[]>(nodeUrl + 'script/' + user).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
     }
 
     public get(user: string, name: string): Promise<ScriptEntity> {
-        return this.http.get<ScriptEntity>('http://localhost:8080/script/' + user + '/' + name).toPromise()
+        return this.http.get<ScriptEntity>(nodeUrl + 'script/' + user + '/' + name).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
@@ -31,7 +32,7 @@ export class ScriptRepository {
     public update(token: string, user: string, name: string, body: string): void {
         let headers: HttpHeaders = new HttpHeaders().append('authenticationToken', token);
         let options = {responseType: 'text' as 'text', headers: headers};
-        this.http.put('http://localhost:8080/script/' + user + '/' + name, body, options).toPromise()
+        this.http.put(nodeUrl + 'script/' + user + '/' + name, body, options).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
@@ -40,7 +41,7 @@ export class ScriptRepository {
     public remove(token: string, user: string, name: string): void {
         let headers: HttpHeaders = new HttpHeaders().append('authenticationToken', token);
         let options = {responseType: 'text' as 'text', headers: headers};
-        this.http.delete('http://localhost:8080/script/' + user + '/' + name, options).toPromise()
+        this.http.delete(nodeUrl + 'script/' + user + '/' + name, options).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });

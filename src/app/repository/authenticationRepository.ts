@@ -1,5 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
+import {nodeUrl} from "../../environments/environment";
 
 @Injectable()
 export class AuthenticationRepostiory {
@@ -11,7 +12,7 @@ export class AuthenticationRepostiory {
             'name': username,
             'password': password
         };
-        return this.http.post<string>('http://localhost:8080/user', body).toPromise()
+        return this.http.post<string>(nodeUrl + 'user', body).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
@@ -24,7 +25,7 @@ export class AuthenticationRepostiory {
         };
 
         let options = {responseType: 'text' as 'text'};
-        return this.http.post('http://localhost:8080/token', body, options).toPromise()
+        return this.http.post(nodeUrl + 'token', body, options).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
