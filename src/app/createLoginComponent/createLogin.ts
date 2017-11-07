@@ -11,6 +11,7 @@ import {AuthenticationService} from "../service/authenticationService";
 export class CreateLogin {
     username: string;
     password: string;
+    passwordConfirm: string;
 
     constructor(private router: Router, private authenticationService: AuthenticationService) {
     }
@@ -20,7 +21,8 @@ export class CreateLogin {
     }
 
     createUser(): void {
-        this.authenticationService.createUser(this.username, this.password);
+        if (this.password !== this.passwordConfirm)
+            return;
         this.authenticationService.createUser(this.username, this.password).then((success: boolean): void => {
             if (success)
                 this.router.navigate(['/editor']);
