@@ -9,8 +9,8 @@ import {AuthenticationService} from "../service/authenticationService";
 })
 
 export class Login {
-    private username: string;
-    private password: string;
+    username: string;
+    password: string;
 
     constructor(private router: Router, private authenticationService: AuthenticationService) {
     }
