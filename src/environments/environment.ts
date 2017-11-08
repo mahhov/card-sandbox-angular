@@ -1,1 +1,1 @@
-export const nodeUrl = 'http://localhost:8080/';
+export const nodeUrl = process.env.backendUrl || 'http://localhost:8080/';
