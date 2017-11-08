@@ -54,7 +54,7 @@ export class TableCanvas {
 
     // --- handle input ---
 
-    private click(x: number, y: number): void {
+    click(x: number, y: number): void {
         let coord: Pos = this.tableCoordinate(x, y);
 
         if (coord)
@@ -63,7 +63,7 @@ export class TableCanvas {
         this.drawTable();
     }
 
-    private mouse(x: number, y: number): void {
+    mouse(x: number, y: number): void {
         let coord: Pos = this.tableCoordinate(x, y);
 
         if (coord)
