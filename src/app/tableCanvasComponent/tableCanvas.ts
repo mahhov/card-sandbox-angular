@@ -30,8 +30,10 @@ export class TableCanvas {
     fontHeight: number;
     cornerMargin: number;
     table: Table;
+    title: string;
 
     constructor(private tableService: TableCreatorService) {
+        this.title = this.tableService.getDemoScriptTitle();
         this.table = this.tableService.getTable();
     }
 
