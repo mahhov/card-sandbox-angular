@@ -2,8 +2,8 @@ import {Injectable} from "@angular/core";
 import * as _ from "underscore";
 import {Script} from "../class/script";
 import {ScriptEntity} from "../class/scriptEntity";
-import {AuthenticationService} from "./authenticationService";
 import {ScriptRepository} from "../repository/scriptRepository";
+import {AuthenticationService} from "./authenticationService";
 
 @Injectable()
 export class ScriptEditorService {
@@ -24,7 +24,7 @@ export class ScriptEditorService {
 
     public add(name: string): void {
         if (this.contains(name))
-            this.scriptList.push(new Script(name, []));
+            this.scriptList.push(new Script(name, this.authenticationService.getUser(), []));
     }
 
     public update(name: string, body: string): void {

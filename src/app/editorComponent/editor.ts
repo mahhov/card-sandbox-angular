@@ -45,7 +45,7 @@ export class Editor {
     demoScript(): void {
         let demoScript: Script;
         if (this.editingScriptBody) {
-            demoScript = new Script(this.editingScriptName, null);
+            demoScript = new Script(this.editingScriptName, null, null);
             demoScript.setScriptString(this.editingScriptBody);
         } else
             demoScript = this.scriptList[this.selectedScript];

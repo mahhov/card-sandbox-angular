@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-3">
             <select size=48 [(ngModel)]="selectedScript">
-                <option *ngFor="let script of scriptList; let i = index" [ngValue]="i">{{script.name}}</option>
+                <option *ngFor="let script of scriptList; let i = index" [ngValue]="i">{{script.name}} - {{script.owner}}</option>
             </select>
         </div>
 
