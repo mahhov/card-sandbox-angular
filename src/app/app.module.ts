@@ -7,23 +7,19 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {AppComponent} from "./app";
 import {CreateLogin} from "./createLoginComponent/createLogin";
 import {Editor} from "./editorComponent/editor";
-import {AuthenticationRepostiory} from "./repository/authenticationRepository";
-import {AuthenticationService} from "./service/authenticationService";
-import {LibraryService} from "./service/libraryService";
-import {ScriptEditorService} from "./service/scriptEditorService";
-import {ScriptRepository} from "./repository/scriptRepository";
-import {TableCreatorService} from "./service/tableCreatorService";
 import {Library} from "./libraryComponent/library";
 import {Login} from "./loginComponent/login";
 import {Navigation} from "./navigationComponent/navigation";
+import {AuthenticationRepostiory} from "./repository/authenticationRepository";
+import {ScriptRepository} from "./repository/scriptRepository";
+import {AuthenticationService} from "./service/authenticationService";
+import {LibraryService} from "./service/libraryService";
+import {ScriptEditorService} from "./service/scriptEditorService";
+import {TableCreatorService} from "./service/tableCreatorService";
 import {TableCanvas} from "./tableCanvasComponent/tableCanvas";
 
 const appRoutes: Routes = [
     {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
-    }, {
         path: 'login',
         component: Login
     }, {
@@ -38,6 +34,10 @@ const appRoutes: Routes = [
     }, {
         path: 'table',
         component: TableCanvas,
+    }, {
+        path: '**',
+        redirectTo: 'login',
+        pathMatch: 'full'
     }];
 
 @NgModule({
