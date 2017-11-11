@@ -21,6 +21,8 @@ export class TableCreatorService {
     }
 
     public getTable(): Table {
+        if (!this.demoScript)
+            return null;
         return this.createTable(this.createProgram(this.preprocessInput(this.getInput())));
     }
 

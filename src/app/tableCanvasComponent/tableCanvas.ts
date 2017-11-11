@@ -1,4 +1,5 @@
 import {Component, ElementRef, ViewChild} from "@angular/core";
+import {Router} from "@angular/router";
 import * as _ from "underscore";
 import {Pos} from "../class/selector/pos";
 import {Card} from "../class/table/card";
@@ -32,9 +33,11 @@ export class TableCanvas {
     table: Table;
     title: string;
 
-    constructor(private tableService: TableCreatorService) {
+    constructor(private router: Router, private tableService: TableCreatorService) {
         this.title = this.tableService.getDemoScriptTitle();
         this.table = this.tableService.getTable();
+        if (!this.table)
+            this.router.navigate(['/login']);
     }
 
     private ngAfterViewInit() {
