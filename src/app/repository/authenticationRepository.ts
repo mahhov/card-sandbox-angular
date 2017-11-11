@@ -12,7 +12,9 @@ export class AuthenticationRepostiory {
             'name': username,
             'password': password
         };
-        return this.http.post<string>(environment.nodeUrl + 'user', body).toPromise()
+
+        let options = {responseType: 'text' as 'text'};
+        return this.http.post(environment.nodeUrl + 'user', body, options).toPromise()
             .catch((error: any): void => {
                 console.log(error);
             });
