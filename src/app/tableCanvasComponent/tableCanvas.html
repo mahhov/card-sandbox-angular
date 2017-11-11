@@ -1,6 +1,12 @@
 <div class="col-xs-12">
-    <div>
-        {{title}}
+    <div class="row">
+        <div class="col-xs-12">
+            {{title}}
+        </div>
     </div>
-    <canvas #myCanvas width='{{canvasWidth}}' height='{{canvasHeight}}' (click)='click($event.offsetX, $event.offsetY)' (mousemove)='mouse($event.offsetX, $event.offsetY)'></canvas>
+    <div class="row">
+        <div class="col-xs-12">
+            <canvas #myCanvas width='{{canvasWidth}}' height='{{canvasHeight}}' (click)='click($event.offsetX, $event.offsetY)' (mousemove)='mouse($event.offsetX, $event.offsetY)'></canvas>
+        </div>
+    </div>
 </div>
