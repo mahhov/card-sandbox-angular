@@ -8,13 +8,13 @@ import {Table} from "../table/table";
 import {Condition} from "./condition";
 
 export class NumericIncrementing extends Condition {
-    delta: number;
     selector: Selector;
+    delta: number;
 
     constructor(words: string[], not: boolean) {
         super(not);
-        this.delta = parseInt(words[1]);
-        this.selector = SelectorCreator.create(_.rest(words, 2));
+        this.selector = SelectorCreator.create(_.rest(words));
+        this.delta = parseInt(words[this.selector.consumed + 1]);
     }
 
     verifyValue(table: Table): boolean {
