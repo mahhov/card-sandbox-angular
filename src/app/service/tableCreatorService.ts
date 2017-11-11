@@ -16,8 +16,8 @@ export class TableCreatorService {
         this.demoScript = script
     };
 
-    public getDemoScriptTitle() {
-        return this.demoScript.title;
+    public getDemoScriptTitle(): string {
+        return this.demoScript && this.demoScript.title;
     }
 
     public getTable(): Table {
