@@ -113,4 +113,4 @@ setstate 0
 
 ### Example: Resulting Game
 
-![demo solitaire gify](../master/gifys/solitaire.gif)
+![demo solitaire gify](../master/gify/solitaire.gif)
