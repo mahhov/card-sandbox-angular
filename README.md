@@ -1,27 +1,116 @@
-# CardSandbox
+# Card Sandbox
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
+### Description
 
-## Development server
+Provides a scripting lanaguge to easily create card games and play them. You can also view, modify, and play games created by other users.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Example: Simple Solitaire Script
 
-## Code scaffolding
+```
+init
+table 8 6
+deck 0 0 full shuffle visible // deck
+deck 0 2 empty order visible // draw
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+let 4 x (2 3 4 5) // pillars
+init
+deck x 0 empty order visible
 
-## Build
+let 6 x (2 3 4 5 6 7) n (1 2 3 4 5 6) // main
+init
+deck x 2 empty order visible vert -1
+move (stack 0 0 n) (x 2 top)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+interact // draw
+state 0 1
+click 0 0
+ifnot empty 0 0
+move (0 0 top) (0 2 top)
+unselect
+setstate 0
 
-## Running unit tests
+interact // reshuffle
+state 0 1
+click 0 0
+if empty 0 0
+move (stack 0 2 all) (0 0 top)
+unselect
+setstate 0
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+interact // select draw
+state 0
+click 0 2
+ifnot empty 0 2
+setselect (0 2 top)
+setstate 1
 
-## Running end-to-end tests
+interact // unselect draw
+state 1
+click 0 2
+unselect
+setstate 0
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+let 4 x (2 3 4 5) suit (h s d c) // add to pillar
+interact
+state 1
+click x 0
+if istop (selected)
+if numericdif (selected) (x 0 top) 1
+if suitequal (selected) suit
+move (selected) (x 0 top)
+unselect
+setstate 0
 
-## Further help
+let 4 x (2 3 4 5) suit (h s d c) // move base to pillar
+interact
+state 1
+click x 0
+if istop (selected)
+if numericequal (selected) 1
+if suitequal (selected) suit
+move (selected) (x 0 top)
+unselect
+setstate 0
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+let 6 x (2 3 4 5 6 7) // select main
+interact
+state 0
+click x 2
+setselect (highlighted)
+setstate 1
+
+let 6 x (2 3 4 5 6 7) // move to main
+interact
+state 1
+click x 2
+if numericdif (selected) (x 2 top) -1
+ifnot colorsame (selected) (x 2 top)
+if coloralternating (selectedstack)
+if numericIncrementing (selectedstack) -1
+move (selectedrepeatstack) (x 2 top)
+unselect
+setstate 0
+
+let 6 x (2 3 4 5 6 7) // move king to empty main
+interact
+state 1
+click x 2
+if empty x 2
+if numericequal (selected) 13
+if coloralternating (selectedstack)
+if numericIncrementing (selectedstack) -1
+move (selectedrepeatstack) (x 2 top)
+unselect
+setstate 0
+
+let 6 x (2 3 4 5 6 7) // unselect main
+interact
+state 1
+click x 2
+unselect
+setstate 0
+```
+
+### Example: Resulting Game
+
+![demo solitaire gify](../master/gifys/solitaire.gify)
